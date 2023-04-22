@@ -1,0 +1,6 @@
+<mod name="VoidUI InfoBoxes" author="MiamiCenter">
+	<AssetUpdates id="36208" version="1.42.1" provider="modworkshop" install_directory = "mods/" version_is_number="false"/>
+	<Dependencies>
+		<Dependency name="Void UI"/>
+	</Dependencies>
+</mod>

@@ -1,0 +1,109 @@
+{
+	"menu_id" : "infobox",
+	"parent_menu" : "options",
+	"title" : "VoidUI_IB_infobox_title",
+	"priority" : 3,
+	"items" : [
+		{
+			"type" : "toggle",
+			"id" : "remove_empty",
+			"callback": "refresh_infoboxes",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_remove_empty_title",
+			"description" : "VoidUI_IB_remove_empty_desc",
+			"default_value" : false
+		},
+		{
+			"type": "button",
+			"id": "hud_space_buttom",
+			"title": "VoidUI_IB_hud_space_title",
+			"description": "VoidUI_IB_hud_space_desc",
+			"next_menu": "hud_space"
+		},
+		{
+			"type" : "divider"
+		},
+		{
+			"type": "button",
+			"id": "jokers_buttom",
+			"title": "VoidUI_IB_jokers_title",
+			"description": "VoidUI_IB_jokers_desc",
+			"next_menu": "jokers_menu"
+		},
+		{
+			"type": "button",
+			"id": "sentry_buttom",
+			"title": "VoidUI_IB_sentry_title",
+			"description": "VoidUI_IB_sentry_desc",
+			"next_menu": "sentry_menu"
+		},
+		{
+			"type" : "divider"
+		},
+		{
+			"type" : "button",
+			"id" : "timers_buttom",
+			"title" : "VoidUI_IB_timers_title",
+			"description" : "VoidUI_IB_timers_menu_desc",
+			"next_menu" : "timers"
+		},
+		{
+			"type" : "button",
+			"id" : "achivenments_buttom",
+			"title" : "VoidUI_IB_achievements_title",
+			"description" : "VoidUI_IB_achievements_desc",
+			"next_menu" : "achievements_menu"
+		},
+		{
+			"type" : "button",
+			"id" : "skills_buttom",
+			"title" : "VoidUI_IB_skills_title",
+			"description" : "VoidUI_IB_skills_menu_desc",
+			"next_menu" : "skills"
+		},
+		{
+			"type" : "button",
+			"id" : "perkdecks_buttom",
+			"title" : "VoidUI_IB_perks_title",
+			"description" : "VoidUI_IB_perks_menu_desc",
+			"next_menu" : "perkdecks"
+		},
+		{
+			"type" : "button",
+			"id" : "collectables_buttom",
+			"title" : "VoidUI_IB_collectables_title",
+			"description" : "VoidUI_IB_collectables_menu_desc",
+			"next_menu" : "collectables"
+		},
+		{
+			"type" : "button",
+			"id" : "counter_buttom",
+			"title" : "VoidUI_IB_counters_title",
+			"description" : "VoidUI_IB_counters_desc",
+			"next_menu" : "counters"
+		},
+		{
+			"type" : "divider"
+		},
+		{
+			"type" : "button",
+			"id" : "debug",
+			"title" : "VoidUI_IB_debug_title",
+			"description" : "VoidUI_IB_debug_desc",
+			"next_menu" : "debug"
+		},
+		{
+			"type" : "divider"
+		},
+		{
+			"type" : "divider"
+		},
+		{
+			"type" : "button",
+			"id" : "support_buttom",
+			"title" : "VoidUI_IB_support_title",
+			"description" : "VoidUI_IB_support_desc",
+			"callback" : "open_support_page"
+		}
+	]
+}

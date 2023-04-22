@@ -1,0 +1,353 @@
+{
+	"menu_id" : "timers",
+	"parent_menu" : "infobox",
+	"title" : "VoidUI_IB_timers_title",
+	"priority" : 4,
+	"items" : [
+		{
+			"type" : "toggle",
+			"id" : "timers",
+			"is_parent" : true,
+			"title" : "VoidUI_IB_timers_title",
+			"description" : "VoidUI_IB_timers_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "Timer_priority",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_Timer_priority_title",
+			"description" : "VoidUI_IB_Timer_priority_desc",
+			"callback": "refresh_infoboxes",
+			"items" : [
+				"ib_one", 
+				"ib_two",
+				"ib_three",
+				"ib_four",
+				"ib_five",
+				"ib_six"
+			],
+			"default_value" : 5
+		},
+		{
+			"type": "multiple_choice",
+			"id": "hud_Timer",
+			"title": "VoidUI_IB_Position_hud_title",
+			"description": "VoidUI_IB_Position_hud_desc",
+			"callback": "refresh_infoboxes",
+			"items": [
+				"ib_assault_corner",
+				"ib_objectives",
+				"ib_hud_one",
+				"ib_hud_two",
+				"ib_hud_three",
+				"ib_hud_four"
+			],
+			"default_value": 1
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_minutes_and_seconds",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_minutes_and_seconds_title",
+			"description" : "VoidUI_IB_timer_minutes_and_seconds_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "AnimateTimerBorders",
+			"is_parent" : true,
+			"parent" : "timers",
+			"title" : "VoidUI_IB_AnimateBorders_title",
+			"description" : "VoidUI_IB_AnimateBorders_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "ReverseTimerAnimation",
+			"parent" : ["timers", "AnimateTimerBorders"],
+			"title" : "VoidUI_IB_ReverseAnimation_title",
+			"description" : "VoidUI_IB_ReverseAnimation_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Drill",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Drill_title",
+			"description" : "VoidUI_IB_timer_Drill_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Time_lock",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Time_lock_title",
+			"description" : "VoidUI_IB_timer_Time_lock_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Tape_loop",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Tape_loop_title",
+			"description" : "VoidUI_IB_timer_Tape_loop_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_The_Beast",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_The_Beast_title",
+			"description" : "VoidUI_IB_timer_The_Beast_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Thermal_drill",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Thermal_drill_title",
+			"description" : "VoidUI_IB_timer_Thermal_drill_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_BFD",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_BFD_title",
+			"description" : "VoidUI_IB_timer_BFD_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Fire",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Fire_title",
+			"description" : "VoidUI_IB_timer_Fire_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Escape",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Escape_title",
+			"description" : "VoidUI_IB_timer_Escape_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Saw",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Saw_title",
+			"description" : "VoidUI_IB_timer_Saw_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Cutter",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Cutter_title",
+			"description" : "VoidUI_IB_timer_Cutter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Fuel",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Fuel_title",
+			"description" : "VoidUI_IB_timer_Fuel_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Water",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Water_title",
+			"description" : "VoidUI_IB_timer_Water_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Water_pump",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Water_pump_title",
+			"description" : "VoidUI_IB_timer_Water_pump_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Timer",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Timer_title",
+			"description" : "VoidUI_IB_timer_Timer_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Hack",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Hack_title",
+			"description" : "VoidUI_IB_timer_Hack_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Upload",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Upload_title",
+			"description" : "VoidUI_IB_timer_Upload_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Download",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Download_title",
+			"description" : "VoidUI_IB_timer_Download_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Analyze",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Analyze_title",
+			"description" : "VoidUI_IB_timer_Analyze_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Breaching",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Breaching_title",
+			"description" : "VoidUI_IB_timer_Breaching_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Barcode_scanner",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Barcode_scanner_title",
+			"description" : "VoidUI_IB_timer_Barcode_scanner_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Helicopter",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Helicopter_title",
+			"description" : "VoidUI_IB_timer_Helicopter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Printer",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Printer_title",
+			"description" : "VoidUI_IB_timer_Printer_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Paper",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Paper_title",
+			"description" : "VoidUI_IB_timer_Paper_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Ink",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Ink_title",
+			"description" : "VoidUI_IB_timer_Ink_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Achievement",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Achievement_title",
+			"description" : "VoidUI_IB_timer_Achievement_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_ChargeGun",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_ChargeGun_title",
+			"description" : "VoidUI_IB_timer_ChargeGun_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Power",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Power_title",
+			"description" : "VoidUI_IB_timer_Power_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_arrest_cooldown",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_arrest_cooldown_title",
+			"description" : "VoidUI_IB_timer_arrest_cooldown_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Elf",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Elf_title",
+			"description" : "VoidUI_IB_timer_Elf_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_MiaCokeDestroy",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_MiaCokeDestroy_title",
+			"description" : "VoidUI_IB_timer_MiaCokeDestroy_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_RatVanFlee",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_RatVanFlee_title",
+			"description" : "VoidUI_IB_timer_RatVanFlee_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		}
+    ]
+}

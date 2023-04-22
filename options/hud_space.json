@@ -1,0 +1,50 @@
+{
+    "menu_id": "hud_space",
+    "parent_menu": "infobox",
+    "title": "VoidUI_IB_hud_space_title",
+    "priority": 3,
+    "items": [
+        {
+            "type": "button",
+            "id": "hud_assault_corner",
+            "title": "VoidUI_IB_hud_assault_corner_title",
+            "description": "VoidUI_IB_hud_assault_corner_desc",
+            "next_menu": "hud_assault_corner"
+        },
+        {
+            "type": "button",
+            "id": "hud_objectives",
+            "title": "VoidUI_IB_hud_objectives_title",
+            "description": "VoidUI_IB_hud_objectives_desc",
+            "next_menu": "hud_objectives"
+        },
+        {
+            "type": "button",
+            "id": "hud_one",
+            "title": "VoidUI_IB_hud_one_title",
+            "description": "VoidUI_IB_hud_custom_hud_space_desc",
+            "next_menu": "hud_one"
+        },
+        {
+            "type": "button",
+            "id": "hud_two",
+            "title": "VoidUI_IB_hud_two_title",
+            "description": "VoidUI_IB_hud_custom_hud_space_desc",
+            "next_menu": "hud_two"
+        },
+        {
+            "type": "button",
+            "id": "hud_three",
+            "title": "VoidUI_IB_hud_three_title",
+            "description": "VoidUI_IB_hud_custom_hud_space_desc",
+            "next_menu": "hud_three"
+        },
+        {
+            "type": "button",
+            "id": "hud_four",
+            "title": "VoidUI_IB_hud_four_title",
+            "description": "VoidUI_IB_hud_custom_hud_space_desc",
+            "next_menu": "hud_four"
+        }
+    ]
+}

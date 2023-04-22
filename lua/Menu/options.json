@@ -1,0 +1,18 @@
+{
+	"menu_id" : "options",
+	"title" : "VoidUI_options_title",
+	"priority" : 1,
+	"items" : [
+		{
+			"type" : "label",
+			"title"	: "VoidUI_IB"
+		},
+		{
+			"type" : "button",
+			"id" : "infobox",
+			"title" : "VoidUI_IB_infobox_title",
+			"description" : "VoidUI_IB_infobox_desc",
+			"callback" : "open_infobox_menu"
+		}
+	]
+}

@@ -1,0 +1,137 @@
+{
+    "menu_id": "hud_one",
+    "parent_menu": "hud_space",
+    "title": "VoidUI_IB_hud_one_title",
+    "priority": 3,
+    "items": [
+        {
+			"type" : "toggle",
+			"id" : "1_show_debug_position",
+			"title" : "VoidUI_IB_show_debug_position_title",
+			"description" : "VoidUI_IB_show_debug_position_desc",
+			"default_value" : false
+		},
+        {
+            "type": "slider",
+            "id": "1_hud_space_x",
+            "title": "VoidUI_IB_p_hud_space_x_title",
+            "description": "VoidUI_IB_p_hud_space_x_desc",
+            "default_value": 0,
+            "max": 100,
+            "min": 0,
+            "step": 2,
+            "callback": "set_hud_space_position"
+        },
+        {
+            "type": "slider",
+            "id": "1_hud_space_y",
+            "title": "VoidUI_IB_p_hud_space_y_title",
+            "description": "VoidUI_IB_p_hud_space_y_desc",
+            "default_value": 0,
+            "max": 100,
+            "min": 0,
+            "step": 2,
+            "callback": "set_hud_space_position"
+        },
+        {
+			"type": "multiple_choice",
+			"id": "1_hud_align",
+			"title": "VoidUI_IB_align_hud_title",
+			"description": "VoidUI_IB_align_hud_desc",
+			"items": [
+				"ib_align_top_left",
+				"ib_align_top_right",
+				"ib_align_bottom_left",
+				"ib_align_bottom_right"
+			],
+			"default_value": 1,
+			"callback": "refresh_align_hud"
+		},
+        {
+			"type": "multiple_choice",
+			"id": "1_hud_overflow",
+			"title": "VoidUI_IB_overflow_to_hud_title",
+			"description": "VoidUI_IB_overflow_to_hud_desc",
+			"items": [
+				"ib_assault_corner",
+				"ib_objectives",
+                "ib_none"
+			],
+			"default_value": 3
+		},
+        {
+            "type": "toggle",
+            "id": "1_dont_change_y",
+            "is_parent": false,
+            "title": "VoidUI_IB_dont_change_y_ib_title",
+            "description": "VoidUI_IB_dont_change_y_ib_desc",
+            "default_value": false
+        },
+        {
+            "type": "slider",
+            "id": "1_1_row_size",
+            "title": "VoidUI_IB_p_one_row_size_title",
+            "description": "VoidUI_IB_p_one_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 1,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "1_2_row_size",
+            "title": "VoidUI_IB_p_two_row_size_title",
+            "description": "VoidUI_IB_p_two_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 0,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "1_3_row_size",
+            "title": "VoidUI_IB_p_three_row_size_title",
+            "description": "VoidUI_IB_p_three_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 0,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "1_4_row_size",
+            "title": "VoidUI_IB_p_four_row_size_title",
+            "description": "VoidUI_IB_p_four_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 0,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "1_5_row_size",
+            "title": "VoidUI_IB_p_five_row_size_title",
+            "description": "VoidUI_IB_p_five_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 0,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "1_6_row_size",
+            "title": "VoidUI_IB_p_six_row_size_title",
+            "description": "VoidUI_IB_p_six_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 0,
+            "step": 0
+        }
+    ]
+}

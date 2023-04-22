@@ -1,0 +1,64 @@
+{
+	"menu_id" : "debug",
+	"parent_menu" : "infobox",
+	"title" : "VoidUI_IB_debug_title",
+	"priority" : 4,
+	"items" : [
+        {
+			"type" : "toggle",
+			"id" : "debug_show_timer_id",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_debug_timer_title",
+			"description" : "VoidUI_IB_debug_timer_desc",
+			"default_value" : false
+		},
+        {
+			"type" : "toggle",
+			"id" : "PrintUnknownTimers",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_PrintUnknownTimers_title",
+			"description" : "VoidUI_IB_PrintUnknownTimers_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "debug_show_missing_id",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_debug_show_missing_id_title",
+			"description" : "VoidUI_IB_debug_show_missing_id_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "debug_print_level_id",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_debug_print_level_id_title",
+			"description" : "VoidUI_IB_debug_print_level_id_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "debug_jokers",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_debug_jokers_title",
+			"description" : "VoidUI_IB_debug_jokers_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "debug_lootbags",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_debug_lootbags_title",
+			"description" : "VoidUI_IB_debug_lootbags_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "debug_buffs",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_debug_buffs_title",
+			"description" : "VoidUI_IB_debug_buffs_desc",
+			"default_value" : false
+		}
+    ]
+}

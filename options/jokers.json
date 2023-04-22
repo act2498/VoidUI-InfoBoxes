@@ -1,0 +1,124 @@
+{
+    "menu_id": "jokers_menu",
+    "parent_menu": "infobox",
+    "title": "VoidUI_IB_jokers_title",
+    "priority": 3,
+    "items": [
+        {
+			"type" : "toggle",
+			"id" : "jokers_infobox",
+			"is_parent" : true,
+			"title" : "VoidUI_IB_jokers_infobox_title",
+			"description" : "VoidUI_IB_jokers_infobox_desc",
+			"default_value" : true,
+			"callback" : "refresh_infoboxes"
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "Minion_priority",
+			"parent" : "jokers_infobox",
+			"title" : "VoidUI_IB_Minion_priority_title",
+			"description" : "VoidUI_IB_Minion_priority_desc",
+			"items" : [
+				"ib_one", 
+				"ib_two",
+				"ib_three",
+				"ib_four",
+				"ib_five",
+				"ib_six"
+			],
+			"default_value" : 4,
+			"callback" : "refresh_infoboxes"
+		},
+		{
+			"type": "multiple_choice",
+			"id": "hud_Minion",
+			"title": "VoidUI_IB_Position_hud_title",
+			"description": "VoidUI_IB_Position_hud_desc",
+			"items": [
+				"ib_assault_corner",
+				"ib_objectives",
+				"ib_hud_one",
+				"ib_hud_two",
+				"ib_hud_three",
+				"ib_hud_four"
+			],
+			"default_value": 1,
+			"callback": "refresh_infoboxes"
+		},
+		{
+			"type" : "toggle",
+			"id" : "jokers_kills",
+			"is_parent" : false,
+			"parent" : "jokers_infobox",
+			"title" : "VoidUI_IB_jokers_kills_title",
+			"description" : "VoidUI_IB_jokers_kills_desc",
+			"default_value" : true,
+			"callback" : "refresh_infoboxes"
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "joker_health_type",
+			"parent" : "jokers_infobox",
+			"title" : "VoidUI_IB_joker_health_type_title",
+			"description" : "VoidUI_IB_joker_health_type_desc",
+			"items" : [
+				"ib_percentage", 
+				"ib_bar"
+			],
+			"default_value" : 2,
+			"callback" : "refresh_infoboxes"
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "joker_align_to",
+			"parent" : "jokers_infobox",
+			"title" : "VoidUI_IB_joker_align_title",
+			"description" : "VoidUI_IB_joker_align_desc",
+			"items" : [
+				"ib_center", 
+				"ib_left", 
+				"ib_right"
+			],
+			"default_value" : 1,
+			"callback" : "refresh_infoboxes"
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "xp_align",
+			"parent" : "jokers_infobox",
+			"title" : "VoidUI_IB_xp_align_title",
+			"description" : "VoidUI_IB_xp_align_desc",
+			"items" : [
+				"ib_center", 
+				"ib_left", 
+				"ib_right"
+			],
+			"default_value" : 1,
+			"callback" : "refresh_infoboxes"
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "joker_xp_type",
+			"parent" : "jokers_infobox",
+			"title" : "VoidUI_IB_joker_xp_type_title",
+			"description" : "VoidUI_IB_joker_xp_type_desc",
+			"items" : [
+				"ib_percentage", 
+				"ib_bar"
+			],
+			"default_value" : 2,
+			"callback" : "refresh_infoboxes"
+		},
+		{
+			"type" : "toggle",
+			"id" : "ShowOnlyOwnedJokers",
+			"is_parent" : false,
+			"parent" : "jokers_infobox",
+			"title" : "VoidUI_IB_ShowOnlyOwnedJokers_title",
+			"description" : "VoidUI_IB_ShowOnlyOwnedJokers_desc",
+			"default_value" : true,
+			"callback" : "refresh_infoboxes"
+		}
+    ]
+}

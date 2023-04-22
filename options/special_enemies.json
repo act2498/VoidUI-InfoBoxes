@@ -1,0 +1,56 @@
+{
+	"menu_id" : "special_enemies",
+	"parent_menu" : "counters",
+	"title" : "VoidUI_IB_special_enemies_title",
+	"priority" : 4,
+	"items" : [
+		{
+			"type" : "toggle",
+			"id" : "enemy_shield_infobox",
+			"title" : "VoidUI_IB_enemy_shield_title",
+			"description" : "VoidUI_IB_enemy_counter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "enemy_spooc_infobox",
+			"title" : "VoidUI_IB_enemy_spooc_title",
+			"description" : "VoidUI_IB_enemy_counter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "enemy_tank_infobox",
+			"title" : "VoidUI_IB_enemy_tank_title",
+			"description" : "VoidUI_IB_enemy_counter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "enemy_taser_infobox",
+			"title" : "VoidUI_IB_enemy_taser_title",
+			"description" : "VoidUI_IB_enemy_counter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "enemy_medic_infobox",
+			"title" : "VoidUI_IB_enemy_medic_title",
+			"description" : "VoidUI_IB_enemy_counter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "enemy_sniper_infobox",
+			"title" : "VoidUI_IB_enemy_sniper_title",
+			"description" : "VoidUI_IB_enemy_counter_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : false
+		}
+    ]
+}

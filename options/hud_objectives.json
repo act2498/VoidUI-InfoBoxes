@@ -1,0 +1,80 @@
+{
+    "menu_id": "hud_objectives",
+    "parent_menu": "hud_space",
+    "title": "VoidUI_IB_hud_objectives_title",
+    "priority": 3,
+    "items": [
+        {
+            "type": "slider",
+            "id": "skills_1_row_size",
+            "parent" : "enable_objectives",
+            "title": "VoidUI_IB_p_one_row_size_title",
+            "description": "VoidUI_IB_p_one_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 3,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "skills_2_row_size",
+            "parent" : "enable_objectives",
+            "title": "VoidUI_IB_p_two_row_size_title",
+            "description": "VoidUI_IB_p_two_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 3,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "skills_3_row_size",
+            "parent" : "enable_objectives",
+            "title": "VoidUI_IB_p_three_row_size_title",
+            "description": "VoidUI_IB_p_three_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 3,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "skills_4_row_size",
+            "parent" : "enable_objectives",
+            "title": "VoidUI_IB_p_four_row_size_title",
+            "description": "VoidUI_IB_p_four_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 3,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "skills_5_row_size",
+            "parent" : "enable_objectives",
+            "title": "VoidUI_IB_p_five_row_size_title",
+            "description": "VoidUI_IB_p_five_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 3,
+            "step": 0
+        },
+        {
+            "type": "slider",
+            "id": "skills_6_row_size",
+            "parent" : "enable_objectives",
+            "title": "VoidUI_IB_p_six_row_size_title",
+            "description": "VoidUI_IB_p_six_row_size_desc",
+            "default_value": 7,
+            "callback": "refresh_infoboxes",
+            "max": 12,
+            "min": 3,
+            "step": 0
+        }
+    ]
+}

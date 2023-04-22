@@ -1,0 +1,59 @@
+{
+	"menu_id" : "crewchief_menu",
+	"parent_menu" : "perkdecks",
+	"title" : "VoidUI_IB_CrewChief_title",
+	"priority" : 4,
+	"items" : [
+		{
+			"type" : "toggle",
+			"id" : "skill_BruteStrength",
+			"is_parent" : true,
+			"title" : "VoidUI_IB_BruteStrength_title",
+			"description" : "VoidUI_IB_BruteStrength_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "BruteStrenghtTrackForCCIC",
+			"parent" : "skill_BruteStrength",
+			"title" : "VoidUI_IB_BruteStrenghtTrackForCCIC_title",
+			"description" : "VoidUI_IB_BruteStrenghtTrackForCCIC_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "skill_MarathonManStamina",
+			"title" : "VoidUI_IB_MarathonManStamina_title",
+			"description" : "VoidUI_IB_MarathonManStamina_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "MarathonManStaminaTrackForCCIC",
+			"title" : "VoidUI_IB_MarathonManStaminaTrackForCCIC_title",
+			"description" : "VoidUI_IB_MarathonManStaminaTrackForCCIC_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "skill_MarathonManDmgDampener",
+			"title" : "VoidUI_IB_MarathonManDmgDampener_title",
+			"description" : "VoidUI_IB_MarathonManDmgDampener_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "skill_HostageSituationCounter",
+			"title" : "VoidUI_IB_HostageSituationCounter_title",
+			"description" : "VoidUI_IB_HostageSituationCounter_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "HostageSituationCounterTrackForCCIC",
+			"title" : "VoidUI_IB_HostageSituationCounterTrackForCCIC_title",
+			"description" : "VoidUI_IB_HostageSituationCounterTrackForCCIC_desc",
+			"default_value" : false
+		}
+    ]
+}

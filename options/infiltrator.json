@@ -1,0 +1,22 @@
+{
+	"menu_id" : "infiltrator_menu",
+	"parent_menu" : "perkdecks",
+	"title" : "VoidUI_IB_infiltrator_title",
+	"priority" : 4,
+	"items" : [
+		{
+			"type" : "toggle",
+			"id" : "skill_LifeDrain",
+			"title" : "VoidUI_IB_LifeDrain_title",
+			"description" : "VoidUI_IB_LifeDrain_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "skill_InfMeleeStack",
+			"title" : "VoidUI_IB_InfMeleeStack_title",
+			"description" : "VoidUI_IB_InfMeleeStack_desc",
+			"default_value" : false
+		}
+    ]
+}

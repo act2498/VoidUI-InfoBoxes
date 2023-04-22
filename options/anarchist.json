@@ -1,0 +1,22 @@
+{
+	"menu_id" : "anarchist_menu",
+	"parent_menu" : "perkdecks",
+	"title" : "VoidUI_IB_anarchist_title",
+	"priority" : 4,
+	"items" : [
+		{
+			"type" : "toggle",
+			"id" : "skill_AnarchistInvulnerable",
+			"title" : "VoidUI_IB_AnarchistInvulnerable_title",
+			"description" : "VoidUI_IB_AnarchistInvulnerable_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "skill_GrindArmor",
+			"title" : "VoidUI_IB_GrindArmor_title",
+			"description" : "VoidUI_IB_GrindArmor_desc",
+			"default_value" : false
+		}
+    ]
+}

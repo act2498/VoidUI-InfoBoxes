@@ -1,0 +1,148 @@
+{
+    "menu_id": "counters",
+    "parent_menu": "infobox",
+    "title": "VoidUI_IB_infobox_title",
+    "priority": 3,
+    "items": [
+        {
+			"type" : "multiple_choice",
+			"id" : "Counter_priority",
+			"title" : "VoidUI_IB_Counter_priority_title",
+			"description" : "VoidUI_IB_Counter_priority_desc",
+			"callback": "refresh_infoboxes",
+			"items" : [
+				"ib_one", 
+				"ib_two",
+				"ib_three",
+				"ib_four",
+				"ib_five",
+				"ib_six"
+			],
+			"default_value" : 2
+		},
+		{
+			"type" : "multiple_choice",
+			"id" : "hud_Counter",
+			"title" : "VoidUI_IB_Position_hud_title",
+			"description" : "VoidUI_IB_Position_hud_desc",
+			"callback": "refresh_infoboxes",
+			"items" : [
+				"ib_assault_corner",
+				"ib_objectives",
+				"ib_hud_one",
+				"ib_hud_two",
+				"ib_hud_three",
+				"ib_hud_four"
+			],
+			"default_value" : 1
+		},
+        {
+			"type" : "toggle",
+			"id" : "civs_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_civs_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_civs_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "enemies_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_enemies_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_enemies_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "special_enemies_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_special_enemies_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_special_enemies_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "button",
+			"id" : "special_button",
+			"title" : "VoidUI_IB_specific_special_enemies_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_specific_special_enemies_desc",
+			"next_menu" : "special_enemies"
+		},
+		{
+			"type" : "toggle",
+			"id" : "gagepacks_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_gage_packs_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_gage_packs_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "Camera_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_Camera_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_Camera_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "kills_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_kills_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_kills_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "special_kills",
+			"is_parent" : true,
+			"title" : "VoidUI_IB_special_kills_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_special_kills_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "special_kills_infobox",
+			"parent" : "special_kills",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_separate_kill_boxes_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_separate_kill_boxes_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "lootbags_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_lootbags_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_lootbags_infobox_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "SeparateBagged",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_SeparateBagged_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_SeparateBagged_desc",
+			"default_value" : false
+		},
+		{
+			"type" : "toggle",
+			"id" : "possible_loot_infobox",
+			"is_parent" : false,
+			"title" : "VoidUI_IB_possible_loot_infobox_title",
+			"callback": "refresh_infoboxes",
+			"description" : "VoidUI_IB_possible_loot_infobox_desc",
+			"default_value" : false
+		}
+    ]
+}
