@@ -243,7 +243,7 @@ function VoidUIInfobox:new_text(text, vertical, valign, align, word_wrap) --read
 end
 
 --This function creates a background and returns it.
-function VoidUIInfobox:new_background() --ready
+function VoidUIInfobox:new_background()
 	local highlight_texture = "guis/textures/VoidUI/hud_highlights"
     local scale, panel_w, panel_h = self:get_scale_options()
 	local new_background = self._panel:bitmap({
@@ -280,9 +280,9 @@ function VoidUIInfobox:remove()
             return
         end
     end
-    local icons_panel
     local hud = self:get_hud(self._type)
     local _custom_icons = hud._custom_icons
+    local icons_panel = hud._custom_hud_panel.icons_panel
     if _custom_icons and table.contains(_custom_icons[self._priority], self._panel) then
         table.remove(_custom_icons[self._priority], table.index_of(_custom_icons[self._priority], self._panel))
     end
@@ -332,7 +332,6 @@ function VoidUIInfobox:FixFont(panel, font_size) --ready
     if h > panel:h() then
         panel:set_font_size(font_size * (panel:h() / h))
     end
-    --self:scroll_text(panel)
 end
 
 --This function creates an Infobox frame with the icon, places it on the hud panel and is calling a sorting function.
@@ -373,56 +372,6 @@ function VoidUIInfobox:PrepareBox()
 
     return true
 end
-
-function VoidUIInfobox:scroll_text(text_panel)
-    text_panel:stop()
-    text_panel:animate(callback(self, self, "_scroll_text"))
-end
-
-function VoidUIInfobox:_scroll_text(text_panel)
-	local t = 0
-	local dt = nil
-	local speed = 40
-	local delay = 2
-	local margin = 40
-	while true do
-		text_panel:set_x(0)
-
-		while t < delay do
-			dt = coroutine.yield()
-			t = t + dt
-		end
-
-		while text_panel:x() > 0 do
-			dt = coroutine.yield()
-
-			text:move(-speed * dt, 0)
-		end
-	end
-end
-
---[[TO DO: Add text scrolling
-
-
-function VoidUIInfobox:_scroll_text(text_panel) --ready
-    local TOTAL_T = 3
-    local t = 0
-    local color = 1
-    local d = true
-    local start_position = text_panel:x()
-    local _,_,w,_ = text_panel:text_rect()
-    local end_position = text_panel:x() - w
-    while true do
-        local dt = coroutine.yield()
-        t = t + dt
-        text_panel:set_x(math.lerp(d and start_position or end_position, d and end_position or start_position, t / TOTAL_T)
-        if t >= TOTAL_T then
-            t = 0
-			d = not d
-		end
-    end
-end
-]]
 
 --This function simply blinks the background of the infobox
 function VoidUIInfobox:_blink_background(background) --ready

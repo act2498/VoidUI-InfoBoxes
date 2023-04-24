@@ -9,7 +9,7 @@ if level == "framing_frame_3" then
         for _, element in pairs(data.elements) do
 			if element.id == 100538 then
 				table.remove(element.values.elements, table.index_of(element.values.elements, 100743))
-				table.insert(element.values.elements, 100744) --Fix linking LOL
+				table.insert(element.values.elements, 100744) --Fix links
 			elseif element.id == 100501 then
 				element.values.enabled = false
 			elseif element.id == 100545 then

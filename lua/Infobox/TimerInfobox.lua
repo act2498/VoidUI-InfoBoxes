@@ -48,8 +48,8 @@ function TimerInfobox:create(data)
     if VoidUI_IB.options.debug_show_timer_id then
         self:DebugPrint("Attempt add new timer".."\nID: "..tostring(data.id).." with time: "..tostring(data.time).."s"..(data.editor_name and " \nThe editor_name is; "..tostring(data.editor_name) or ""))
     end
-    self._init_time = data.time
-    local time = data.time
+    self._init_time = data.time and data.time or 0
+    local time = data.time and data.time or 0
     self._icon_color = VoidUI_HMV and VoidUI_HMV.options.generic_colors and self.icon_color or VoidUI_HMV and VoidUI_HMV:GetColor(self.string_id.."_icon") or Color(1,1,1)
     self.string_id_color = VoidUI_HMV and VoidUI_HMV.options.generic_colors and self.text_color or VoidUI_HMV and VoidUI_HMV:GetColor(self.string_id.."_name") or Color(1,1,1)
     self._time_color = VoidUI_HMV and VoidUI_HMV.options.generic_colors and self.text_color or VoidUI_HMV and VoidUI_HMV:GetColor(self.string_id.."_time") or Color(1,1,1)
@@ -125,6 +125,7 @@ end
 
 function TimerInfobox:set_jammed(jammed)
     if not self._text_panel then return end
+    self._is_jammed = jammed
     self._text_panel:set_color(jammed and Color(1,0,0) or self._time_color)
     self._name_panel:set_color(jammed and Color(1,0,0) or self.string_id_color)
     --self._border:set_color(jammed and Color(1,0,0) or Color(1,1,1))

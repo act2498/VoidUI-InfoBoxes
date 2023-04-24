@@ -30,7 +30,6 @@ end
 
 if VoidUI_IB.options.enemies_infobox or VoidUI_IB.options.special_enemies_infobox or any_special_enemy_box_active then
     local special_counter = {}
-    special_enemies = 0
     local function check_special_name(name)
         if string.find(name, "tank") then
             name = "tank"
@@ -39,54 +38,45 @@ if VoidUI_IB.options.enemies_infobox or VoidUI_IB.options.special_enemies_infobo
         end
         return name
     end
-    Hooks:PostHook(EnemyManager, 'on_enemy_registered', 'add_enemy', function(self, enemy)
-        if _G.VoidUITimerAddon then
-            local stats_name = enemy:base()._stats_name or enemy:base()._tweak_table
-            if not VoidUI_IB.options.special_enemies_infobox then
-                managers.hud._hud_assault_corner:update_box("enemies",self._enemy_data.nr_units)
-            else
-                if table.contains(special_unit_ids, stats_name) then
-                    special_enemies = special_enemies + 1
-                    managers.hud._hud_assault_corner:update_box("special_enemies", special_enemies)
-                end
-                managers.hud._hud_assault_corner:update_box("enemies", self._enemy_data.nr_units - special_enemies)
-            end
 
-            local enemy_name = check_special_name(stats_name)
-            if VoidUI_IB.options["enemy_"..enemy_name.."_infobox"] then
-                if not special_counter[enemy_name] then
-                    special_counter[enemy_name] = 0
-                end
-
-                special_counter[enemy_name] = special_counter[enemy_name] + 1
-                managers.hud._hud_assault_corner:update_box("enemy_"..enemy_name, special_counter[enemy_name])
-            end
+    function EnemyManager:VUIB_update_units_count()
+        local hud = managers.hud._hud_assault_corner
+        if not VoidUI_IB.options.special_enemies_infobox then
+            hud:update_box("enemies", self._enemy_data.nr_units)
+        else
+            hud:update_box("special_enemies", self._enemy_data.nr_special_units)
+            hud:update_box("enemies", self._enemy_data.nr_units - self._enemy_data.nr_special_units)
         end
+
+        local enemy_name = check_special_name(stats_name)
+        if VoidUI_IB.options["enemy_"..enemy_name.."_infobox"] then
+            if not special_counter[enemy_name] then
+                special_counter[enemy_name] = 0
+            end
+
+            special_counter[enemy_name] = special_counter[enemy_name] + 1
+            hud:update_box("enemy_"..enemy_name, special_counter[enemy_name])
+        end
+    end
+
+    Hooks:PostHook(EnemyManager, "_init_enemy_data", "VUIB_init_enemy_counters", function(self)
+        self._enemy_data.nr_special_units = 0
+    end)
+
+    Hooks:PostHook(EnemyManager, 'on_enemy_registered', 'add_enemy', function(self, enemy)
+        local stats_name = enemy:base()._stats_name or enemy:base()._tweak_table
+        if table.contains(special_unit_ids, stats_name) then
+            self._enemy_data.nr_special_units = self._enemy_data.nr_special_units + 1
+        end
+        self:VUIB_update_units_count()
     end)
 
     Hooks:PostHook(EnemyManager, 'on_enemy_unregistered', 'remove_enemy', function(self, unit)
-        if _G.VoidUITimerAddon then
-            local stats_name = unit:base()._stats_name or unit:base()._tweak_table
-            if not VoidUI_IB.options.special_enemies_infobox then
-                managers.hud._hud_assault_corner:update_box("enemies", self._enemy_data.nr_units)
-            else
-                if table.contains(special_unit_ids, stats_name) then
-                    special_enemies = special_enemies - 1
-                    managers.hud._hud_assault_corner:update_box("special_enemies", special_enemies)
-                end
-                managers.hud._hud_assault_corner:update_box("enemies", self._enemy_data.nr_units - special_enemies)
-            end
-
-            local enemy_name = check_special_name(stats_name)
-            if VoidUI_IB.options["enemy_"..enemy_name.."_infobox"] then
-                if not special_counter[enemy_name] then
-                    special_counter[enemy_name] = 1
-                end
-
-                special_counter[enemy_name] = special_counter[enemy_name] - 1
-                managers.hud._hud_assault_corner:update_box("enemy_"..enemy_name, special_counter[enemy_name])
-            end
+        local stats_name = enemy:base()._stats_name or enemy:base()._tweak_table
+        if table.contains(special_unit_ids, stats_name) then
+            self._enemy_data.nr_special_units = self._enemy_data.nr_special_units - 1
         end
+        self:VUIB_update_units_count()
     end)
 end
 if VoidUI_IB.options.civs_infobox then

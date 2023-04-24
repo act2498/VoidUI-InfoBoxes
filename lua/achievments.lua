@@ -119,42 +119,4 @@ if RequiredScript == "lib/managers/mission/elementawardachievment" and VoidUI_IB
             end
         end
     end)
---[[
-    
-    Code below disables AI pathing when player is too far away and AI state is "hold_position" or "defend_area".
-    This is disabled because it is game changing stuff and I don't want to be responsible for it.
-
-    It was (and still is) used purely for debug purposes.
-
-    elseif RequiredScript == "lib/managers/group_ai_states/groupaistatebase" and false then
-    function GroupAIStateBase:upd_team_AI_distance()
-        if self:team_ai_enabled() then
-            for _, ai in pairs(self:all_AI_criminals()) do
-                local ai_pos = ai.unit:movement()._m_pos
-                local closest_unit = nil
-                local closest_distance = tweak_data.team_ai.stop_action.teleport_distance * tweak_data.team_ai.stop_action.teleport_distance
-
-                for _, player in pairs(self:all_player_criminals()) do
-                    local distance = mvector3.distance_sq(ai_pos, player.pos)
-
-                    if distance < closest_distance then
-                        closest_unit = player.unit
-                        closest_distance = distance
-                    end
-                end
-
-                if closest_unit then
-                    if ai.unit:movement() and ai.unit:movement()._should_stay and closest_distance > tweak_data.team_ai.stop_action.distance * tweak_data.team_ai.stop_action.distance then
-                        --ai.unit:movement():set_should_stay(false)
-                        print("[GroupAIStateBase:update] team ai is too far away, started moving again")
-                    end
-
-                    if closest_distance > tweak_data.team_ai.stop_action.teleport_distance * tweak_data.team_ai.stop_action.teleport_distance then
-                        --ai.unit:movement():set_position(unit:position())
-                        print("[GroupAIStateBase:update] team ai is too far away, teleported to player")
-                    end
-                end
-            end
-        end
-    end]]
 end

@@ -4,21 +4,12 @@ Hooks:PostHook( HUDAssaultCorner, "init", "something_funnyxd", function(self, da
 	end
 	_G.VoidUITimerAddon = true
 
-	--managers.hud:add_updator("update_hudinfo_mc", callback(self, self, "_update"))
-
 	local icons_panel = self._custom_hud_panel:child("icons_panel")
 	icons_panel:set_w(600 * self._scale)
 end)
 
 Hooks:PostHook(HUDAssaultCorner, "setup_icons_panel", "vuib_make_it_bigger", function(self)
-	self._custom_icons = {
-		{},
-		{},
-		{},
-		{},
-		{},
-		{}
-	}
+	self._custom_icons = {{},{},{},{},{},{}}
 	self._icons_panel:set_w(600 * self._scale)
 	self._icons_panel:set_right(self._custom_hud_panel:w())
 	if not VoidUIInfobox then return end
@@ -98,14 +89,15 @@ function HUDAssaultCorner:add_custom_timer(data)
 end
 
 function HUDAssaultCorner:update_custom_timer(data, t, dt)
-	if not self._timer[data.id] or not VoidUIInfobox:child("cu_"..data.id) then return end
+	local infobox = VoidUIInfobox:child("cu_"..data.id)
+	if not self._timer[data.id] or not infobox then return end
 	self._timer[data.id] = self._timer[data.id] - dt
 
-	VoidUIInfobox:child("cu_"..data.id):set_value(self._timer[data.id])
+	infobox:set_value(self._timer[data.id])
 
 	if self._timer[data.id] <= 0 and not data.manual_remove then
 		managers.hud:remove_updator("update_custom_timer_"..data.id)
-		VoidUIInfobox:child("cu_"..data.id):remove()
+		infobox:remove()
 		self._timer[data.id] = nil
 	end
 end
@@ -119,40 +111,48 @@ function HUDAssaultCorner:remove_custom_timer(id)
 end
 
 function HUDAssaultCorner:set_custom_jammed(data)
-	if data.jammed and data.id and VoidUIInfobox:child("cu_"..data.id) then
+	local infobox = VoidUIInfobox:child("cu_"..data.id)
+	if not infobox then return end
+	if infobox._is_jammed == data.jammed then return end
+	if data.jammed then
 		managers.hud:remove_updator("update_custom_timer_"..data.id)
-		VoidUIInfobox:child("cu_"..data.id):set_jammed(data.jammed)
-	elseif not data.jammed and data.id and VoidUIInfobox:child("cu_"..data.id) then
+	elseif data.jammed == false then
 		managers.hud:add_updator("update_custom_timer_"..data.id, callback(self, self, "update_custom_timer", data))
-		VoidUIInfobox:child("cu_"..data.id):set_jammed(data.jammed)
 	end
+	infobox:set_jammed(data.jammed)
 end
 
 function HUDAssaultCorner:add_custom_time(data)
 	if not self._timer then self._timer = {} end
-	if data.id and data.time and self._timer[data.id] then
-		if data.operation and data.operation == "add" then
-			if VoidUIInfobox:child("cu_"..data.id)._init_time < data.time then
-				VoidUIInfobox:child("cu_"..data.id)._init_time = data.time
+	local infobox = VoidUIInfobox:child(data.id)
+	if infobox then return end
+	if data.time and self._timer[data.id] then
+		if data.operation then
+			if data.operation == "add" then
+				self._timer[data.id] = self._timer[data.id] + data.time
+				if infobox._init_time < data.time then
+					infobox._init_time = self._timer[data.id]
+				end
+			elseif data.operation == "reset" or data.operation == "set_time" then
+				self._timer[data.id] = data.time
+				infobox._init_time = data.time
 			end
-			self._timer[data.id] = self._timer[data.id] + data.time
-		elseif data.operation and data.operation == "reset" or data.operation == "set_time" then
-			VoidUIInfobox:child("cu_"..data.id)._init_time = data.time
-			self._timer[data.id] = data.time
+		else
+			VoidUIInfobox:Error("No operation specified for timer: "..data.id)
 		end
 	end
 end
 
-function HUDAssaultCorner:update_box(id, value, type)
-	local InfoboxClass = type == "Collectable" and CollectableInfobox or CounterInfobox
-	if not InfoboxClass:child(id) then
-		InfoboxClass:new({
+function HUDAssaultCorner:update_box(id, value)
+	local infobox = VoidUIInfobox:child(id)
+	if not infobox then
+		VoidUIInfobox:new({
 			id = id,
 			value = value
 		})
 	else
-		if value and value ~= InfoboxClass:child(id).value then
-			InfoboxClass:child(id):set_value(value)
+		if value and value ~= infobox.value then
+			infobox:set_value(value)
 		end
 	end
 end
@@ -205,7 +205,6 @@ function HUDAssaultCorner:sort_boxes()
 	end
 	local icons_panel = self._custom_hud_panel:child("icons_panel")
     
-	
     for priority, panels in pairs(self._custom_icons) do
         local row_size = VoidUI_IB.options[priority.."_row_size"] or 7
 		if y_offset == 0 and priority > 1 and VoidUI_IB.options.row_one_only_one_priority then

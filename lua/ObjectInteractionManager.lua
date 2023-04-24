@@ -88,7 +88,6 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 						end
 						self.unbagged = self.unbagged + 1
 					else
-						--chat_debug("Adding bagged bag to counter. Name = "..tostring(name).."\nID = "..tostring(unit:unit_data().unit_id).."\nUnit name: "..tostring(unit:name()))
 						self.bagged = self.bagged + 1
 					end
 					self:update_loot_count()

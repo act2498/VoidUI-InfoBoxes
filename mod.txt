@@ -30,7 +30,7 @@
 		{"hook_id" : "lib/units/beings/player/playerdamage", "script_path" : "lua/skills.lua"},
 		{"hook_id" : "lib/units/enemies/cop/logics/coplogicarrest", "script_path" : "lua/skills.lua"},
 		{"hook_id" : "lib/units/beings/player/states/playerstandard", "script_path" : "lua/skills.lua"},
-		{"hook_id" : "lib/managers/hud/hudobjectives", "script_path" : "lua/skills.lua"},
+		{"hook_id" : "lib/managers/hud/hudobjectives", "script_path" : "lua/HudObjectives.lua"},
 		{"hook_id" : "lib/managers/playermanager", "script_path" : "lua/skills.lua"},
 		{"hook_id" : "lib/units/equipment/sentry_gun/sentrygunequipment", "script_path" : "lua/Sentry.lua"},
 		{"hook_id" : "lib/units/equipment/sentry_gun/sentrygundamage", "script_path" : "lua/Sentry.lua"},

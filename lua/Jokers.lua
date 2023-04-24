@@ -14,19 +14,20 @@ if RequiredScript == "lib/managers/group_ai_states/groupaistatebase" then
 			local color_id = managers.criminals:character_color_id_by_unit(player_unit)
 			if unit_data then
 				MinionInfobox:new({id = "joker_"..unit:id(), color_id = color_id})
+				local infobox = MinionInfobox:child("joker_"..unit:id())
 				if _G.Jokermon then
 					local joker_name
-					if MinionInfobox:child("joker_"..unit:id()) then
+					if infobox then
 						local joker = Jokermon.jokers[unit:base()._jokermon_key]
 						joker_name = joker and joker.name or managers.localization:text("VoidUI_IB_joker")
-						local panel = MinionInfobox:child("joker_"..unit:id()).name_id_panel
+						local panel = infobox.name_id_panel
 						panel:set_text(joker_name)
 						font_size = 38 * VoidUI.options.hud_assault_scale / 4
 						panel:set_font_size(font_size)
 						local _,_,w,h = panel:text_rect()
 						panel:set_font_size(math.clamp(font_size * (panel:h() / h), 8, font_size))
-						MinionInfobox:child("joker_"..unit:id()):set_value(joker and joker.kills + joker.special_kills or 0)
-						MinionInfobox:child("joker_"..unit:id()):update_info(unit:character_damage():health_ratio(), joker and joker:get_exp_ratio() or 0)
+						infobox:set_value(joker and joker.kills + joker.special_kills or 0)
+						infobox:update_info(unit:character_damage():health_ratio(), joker and joker:get_exp_ratio() or 0)
 						
 						if unit:unit_data().label_id then
 							managers.hud:_remove_name_label(unit:unit_data().label_id)
@@ -57,7 +58,7 @@ if RequiredScript == "lib/managers/group_ai_states/groupaistatebase" then
 elseif RequiredScript == "lib/network/handlers/unitnetworkhandler" then
 
 	Hooks:PreHook(UnitNetworkHandler, 'hostage_trade', 'on_trade_remove_joker_ib', function(self, unit, enable, trade_success, skip_hint)
-		if unit and _G.VoidUITimerAddon and MinionInfobox:child("joker_"..unit:id()) and MinionInfobox then
+		if unit and _G.VoidUITimerAddon and MinionInfobox:child("joker_"..unit:id()) then
             MinionInfobox:child("joker_"..unit:id()):remove()
 		end
 	end)
@@ -69,19 +70,20 @@ elseif RequiredScript == "lib/network/handlers/unitnetworkhandler" then
 			local get_owner = managers.network and managers.network:session() and alive(managers.network:session():peer(minion_owner_peer_id):unit()) and managers.network:session():peer(minion_owner_peer_id):unit()
 			local color_id = minion_owner_peer_id and managers.criminals and managers.criminals:character_color_id_by_unit(get_owner) or 1
 			MinionInfobox:new({id = "joker_"..unit:id(), color_id = color_id})
+			local infobox = MinionInfobox:child("joker_"..unit:id())
 			if _G.Jokermon then
 				local joker_name
-				if MinionInfobox:child("joker_"..unit:id()) then
+				if infobox then
 					local joker = Jokermon.jokers[unit:base()._jokermon_key]
 					joker_name = joker and joker.name or managers.localization:text("VoidUI_IB_joker")
-					local panel = MinionInfobox:child("joker_"..unit:id()).name_id_panel
+					local panel = infobox.name_id_panel
 					panel:set_text(joker_name)
 					local font_size = 38 * VoidUI.options.hud_assault_scale / 4
 					panel:set_font_size(font_size)
 					local _,_,w,_ = panel:text_rect()
 					panel:set_font_size(math.clamp(font_size * (panel:w() / w), 8, font_size))
-					MinionInfobox:child("joker_"..unit:id()):set_value(joker and joker.kills + joker.special_kills or 0)
-					MinionInfobox:child("joker_"..unit:id()):update_info(unit:character_damage():health_ratio(), joker and joker:get_exp_ratio() or 0)
+					infobox:set_value(joker and joker.kills + joker.special_kills or 0)
+					infobox:update_info(unit:character_damage():health_ratio(), joker and joker:get_exp_ratio() or 0)
 
 					if unit:unit_data().label_id then
 						managers.hud:_remove_name_label(unit:unit_data().label_id)
@@ -134,15 +136,16 @@ elseif RequiredScript == "lib/units/enemies/cop/copdamage" then
 	end)
 	Hooks:PreHook(CopDamage, "_call_listeners", "show_joker_kills", function (self, damage_info)
 		if self._dead and _G.VoidUITimerAddon and MinionInfobox then
-			if VoidUI_IB.options.jokers_kills and damage_info.attacker_unit and MinionInfobox:child("joker_"..damage_info.attacker_unit:id()) then
-				MinionInfobox:child("joker_"..damage_info.attacker_unit:id()):set_value()
+			local infobox = MinionInfobox:child("joker_"..damage_info.attacker_unit:id())
+			if VoidUI_IB.options.jokers_kills and damage_info.attacker_unit and infobox then
+				infobox:set_value()
 				if Jokermon then
 					local joker = Jokermon.jokers[damage_info.attacker_unit:base()._jokermon_key]
-					MinionInfobox:child("joker_"..damage_info.attacker_unit:id()):update_info(nil, joker and joker:get_exp_ratio() or 0)
+					infobox:update_info(nil, joker and joker:get_exp_ratio() or 0)
 				end
 			end
-			if damage_info.attacker_unit and MinionInfobox:child("sentry_"..damage_info.attacker_unit:id()) then
-				MinionInfobox:child("sentry_"..damage_info.attacker_unit:id()):set_value()
+			if damage_info.attacker_unit and VoidUIInfobox:child("sentry_"..damage_info.attacker_unit:id()) then
+				VoidUIInfobox:child("sentry_"..damage_info.attacker_unit:id()):set_value()
 			end
 			if MinionInfobox:child("joker_"..self._unit:id()) then
 				MinionInfobox:child("joker_"..self._unit:id()):remove()

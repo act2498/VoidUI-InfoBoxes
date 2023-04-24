@@ -34,9 +34,9 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		["chas"] = {"138531", "138831", "139731", "140031", "139431"},
 		["des"] = {"136531", "159611"},
 		["big"] = {"105990", "105997", "105993", "106006"},
-		["dah"] = {"105076", "105083", "145903"}, --VoiceLine / Box mark timers, useless
-		["rvd2"] = {"102137"}, --It's a PC hack element timer, we don't need this since PC has a GUI timer
-		["Xanax"] = {"131017", "100416", "132017"}, --PC Jamm timer
+		["dah"] = {"105076", "105083", "145903"},
+		["rvd2"] = {"102137"},
+		["Xanax"] = {"131017", "100416", "132017"},
 		["ranc"] = {"102273", "101062", "102063", "102100"},
 		["arm_for"] = {"130664", "130564", "130464", "130364", "130264", "130164", "130064"},
 		["shoutout_raid"] = {"132878"},
@@ -65,21 +65,6 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 
 	local filter_names_table = {
 		--[[
-			[VoidUI Infoboxes]: Unknown timer, please report this to VoidUIInfoboxes dev
-			ID: e_137324
-			Name: hacking_timer
-			LevelId: pex
-			InstanceName: pex_armory_large_001
-
-			[VoidUI Infoboxes]: Unknown timer, please report this to VoidUIInfoboxes dev
-			ID: e_101587 --Fire Timer
-			Name: timer
-			LevelId: pex
-
-			[VoidUI Infoboxes]: Unknown timer, please report this to VoidUIInfoboxes dev
-			ID: e_103086
-			Name: Logic_timer_001
-			LevelId: gallery
 		]]
 		["pex"] = {
 			["101587"] = "Fire",
@@ -392,13 +377,14 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		end
 		local time = self:get_random_table_value_float(self:value("time"))
 		local level_id = Global.game_settings.level_id
+		local hud = managers.hud._hud_assault_corner
 		for _, id in ipairs(self._values.elements) do
 			local element = self:get_mission_element(id)
 			
 			if element and filter_timer(id) then
 				if self._values.operation == "pause" then
 					local data = {id = id, jammed = true}
-					managers.hud._hud_assault_corner:set_custom_jammed(data)
+					hud:set_custom_jammed(data)
 					if hide_on_stop[level_id] and table.contains(hide_on_stop[level_id], tostring(self._id)) and TimerInfobox:child("cu_e_"..self._id) then
 						TimerInfobox:child("cu_e_"..self._id):remove()
 					end
@@ -406,24 +392,24 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 					if not self._created then
 						local name, achievement_id = filter_names(id)
 						local data = {id = id, name = name, time = element._timer, achievement_id = achievement_id, editor_name = self._editor_name, instance_name = self._values.instance_name}
-						managers.hud._hud_assault_corner:add_custom_timer(data)
+						hud:add_custom_timer(data)
 						self._created = true
 					else
 						local data = {id = id, jammed = false}
-						managers.hud._hud_assault_corner:set_custom_jammed(data)
+						hud:set_custom_jammed(data)
 					end
 				elseif self._values.operation == "add_time" then
 					local data = {id = id, time = time, operation = "add"}
-					managers.hud._hud_assault_corner:add_custom_time(data)
+					hud:add_custom_time(data)
 				elseif self._values.operation == "subtract_time" then
 					local data = {id = id, time = -1 * time, operation = "add"}
-					managers.hud._hud_assault_corner:add_custom_time(data)
+					hud:add_custom_time(data)
 				elseif self._values.operation == "reset" then
 					local data = {id = id, time = time, operation = "reset"}
-					managers.hud._hud_assault_corner:add_custom_time(data)
+					hud:add_custom_time(data)
 				elseif self._values.operation == "set_time" then
 					local data = {id = id, time = time, operation = "set_time"}
-					managers.hud._hud_assault_corner:add_custom_time(data)
+					hud:add_custom_time(data)
 				end
 			end
 		end
