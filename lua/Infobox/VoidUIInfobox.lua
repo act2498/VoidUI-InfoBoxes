@@ -282,7 +282,7 @@ function VoidUIInfobox:remove()
     end
     local hud = self:get_hud(self._type)
     local _custom_icons = hud._custom_icons
-    local icons_panel = hud._custom_hud_panel.icons_panel
+    local icons_panel = hud._icons_panel
     if _custom_icons and table.contains(_custom_icons[self._priority], self._panel) then
         table.remove(_custom_icons[self._priority], table.index_of(_custom_icons[self._priority], self._panel))
     end
@@ -318,7 +318,10 @@ function VoidUIInfobox:set_value(value)
         end
         return --We don't have a text panel yet, so we can't set the value
     end
-
+    if not self._set_value then
+        self:Error("This infobox doesn't have a _set_value function!"..tostring(self.id))
+        return
+    end
     self:_set_value(value)
 end
 

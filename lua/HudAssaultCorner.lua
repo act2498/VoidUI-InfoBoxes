@@ -146,7 +146,8 @@ end
 function HUDAssaultCorner:update_box(id, value)
 	local infobox = VoidUIInfobox:child(id)
 	if not infobox then
-		VoidUIInfobox:new({
+		local InfoboxClass = type == "Collectable" and CollectableInfobox or CounterInfobox
+		InfoboxClass:new({
 			id = id,
 			value = value
 		})

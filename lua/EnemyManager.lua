@@ -39,8 +39,9 @@ if VoidUI_IB.options.enemies_infobox or VoidUI_IB.options.special_enemies_infobo
         return name
     end
 
-    function EnemyManager:VUIB_update_units_count()
+    function EnemyManager:VUIB_update_units_count(stats_name)
         local hud = managers.hud._hud_assault_corner
+        if not hud then return end --HUD not loaded yet
         if not VoidUI_IB.options.special_enemies_infobox then
             hud:update_box("enemies", self._enemy_data.nr_units)
         else
@@ -68,15 +69,15 @@ if VoidUI_IB.options.enemies_infobox or VoidUI_IB.options.special_enemies_infobo
         if table.contains(special_unit_ids, stats_name) then
             self._enemy_data.nr_special_units = self._enemy_data.nr_special_units + 1
         end
-        self:VUIB_update_units_count()
+        self:VUIB_update_units_count(stats_name)
     end)
 
     Hooks:PostHook(EnemyManager, 'on_enemy_unregistered', 'remove_enemy', function(self, unit)
-        local stats_name = enemy:base()._stats_name or enemy:base()._tweak_table
+        local stats_name = unit:base()._stats_name or unit:base()._tweak_table
         if table.contains(special_unit_ids, stats_name) then
             self._enemy_data.nr_special_units = self._enemy_data.nr_special_units - 1
         end
-        self:VUIB_update_units_count()
+        self:VUIB_update_units_count(stats_name)
     end)
 end
 if VoidUI_IB.options.civs_infobox then
