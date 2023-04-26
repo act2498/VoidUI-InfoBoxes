@@ -136,6 +136,15 @@
 		},
 		{
 			"type" : "toggle",
+			"id" : "timer_Assemble",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Assemble_title",
+			"description" : "VoidUI_IB_timer_Assemble_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
 			"id" : "timer_Escape",
 			"parent" : "timers",
 			"title" : "VoidUI_IB_timer_Escape_title",

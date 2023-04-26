@@ -31,24 +31,6 @@ elseif RequiredScript == "lib/units/equipment/sentry_gun/sentrygunequipment" the
 	end)
 
 	function SentryGunEquipment:VUIB_spawn_box()
-		--self._unit:base():has_shield() - has shield
-		--self._unit:base():get_owner_id() - owner ID
-		--self._unit:base():get_type() - sentry type
-		--self._unit:id() -- unitID
-		--self._unit:weapon():ammo_ratio() --ammo ratio
-		--self._unit:character_damage():health_ratio() --health ratio
-		--self._unit:character_damage():shield_health_ratio() -- shield ratio
-
-		--[[
-			SentryInfobox:new({
-				id = "sentry_test",
-				name_id = "sentry_gun", 
-				color_id = 1, 
-				ap_rounds = 1, 
-				ammo_ratio = math.random(),
-				health_ratio = math.random()
-			})
-		]]
 		SentryInfobox:new({
 			id = "sentry_"..self._unit:id(),
 			name_id = self._unit:base():get_type(), 
@@ -56,11 +38,6 @@ elseif RequiredScript == "lib/units/equipment/sentry_gun/sentrygunequipment" the
 			ap_rounds = self._unit:weapon():get_fire_mode(), 
 			ammo_ratio = self._unit:weapon():ammo_ratio(),
 			health_ratio = self._unit:character_damage():health_ratio()
-			--self._unit:base():has_shield()
-			--self._unit:character_damage():shield_health_ratio()
-			--Shield Health Ratio is useless, since Sentry Gun Shield's are basically receiving 0 damage on hit,
-			--And shield amount is set to 0 for every sentry gun (unless modded otherwise)
-			--Since that we don't even have to look for the shield at all
 		})
 	end
 	function SentryGunEquipment:VoidUI_IB_update_sentry()

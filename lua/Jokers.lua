@@ -5,7 +5,7 @@ local function chat_debug(message)
 end
 if RequiredScript == "lib/managers/group_ai_states/groupaistatebase" then
 	Hooks:PostHook(GroupAIStateBase, 'convert_hostage_to_criminal', 'add_joker_infobox', function(self, unit, peer_unit)
-		if unit and _G.VoidUITimerAddon and MinionInfobox then
+		if unit and MinionInfobox then
 			if VoidUI_IB.options.debug_jokers then
 				chat_debug("Attempt add Joker".."\nID: "..tostring(unit:id()))
 			end
@@ -50,7 +50,7 @@ if RequiredScript == "lib/managers/group_ai_states/groupaistatebase" then
 
 	Hooks:PreHook(GroupAIStateBase, 'remove_minion', 'remove_joker_infobox', function(self, minion_key, player_key)
 		local minion_unit = self._converted_police[minion_key]
-		if minion_unit and _G.VoidUITimerAddon and MinionInfobox and MinionInfobox:child("joker_"..minion_unit:id()) then
+		if minion_unit and MinionInfobox and MinionInfobox:child("joker_"..minion_unit:id()) then
 			MinionInfobox:child("joker_"..minion_unit:id()):remove()
 		end
 	end)
@@ -58,12 +58,12 @@ if RequiredScript == "lib/managers/group_ai_states/groupaistatebase" then
 elseif RequiredScript == "lib/network/handlers/unitnetworkhandler" then
 
 	Hooks:PreHook(UnitNetworkHandler, 'hostage_trade', 'on_trade_remove_joker_ib', function(self, unit, enable, trade_success, skip_hint)
-		if unit and _G.VoidUITimerAddon and MinionInfobox:child("joker_"..unit:id()) then
-            MinionInfobox:child("joker_"..unit:id()):remove()
+		if unit and MinionInfobox:child("joker_"..unit:id()) then
+			MinionInfobox:child("joker_"..unit:id()):remove()
 		end
 	end)
 	Hooks:PostHook(UnitNetworkHandler, 'mark_minion', 'jk_fix1', function(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender)
-		if unit and _G.VoidUITimerAddon and MinionInfobox then
+		if unit and MinionInfobox then
 			if VoidUI_IB.options.debug_jokers then
 				chat_debug("Attempt add Joker with localscript".."\nID: "..tostring(unit:id()))
 			end
@@ -103,7 +103,7 @@ elseif RequiredScript == "lib/network/handlers/unitnetworkhandler" then
 		end
 	end)
 	Hooks:PostHook(UnitNetworkHandler, 'remove_minion', 'jk_fix2', function(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender)
-		if unit and _G.VoidUITimerAddon and MinionInfobox then
+		if unit and MinionInfobox then
 			if VoidUI_IB.options.debug_jokers then
 				chat_debug("Attempt remove Joker with localscript".."\nID: "..tostring(unit:id()))
 			end
@@ -115,7 +115,7 @@ elseif RequiredScript == "lib/network/handlers/unitnetworkhandler" then
 elseif RequiredScript == "lib/units/enemies/cop/huskcopbrain" then
 	
 	Hooks:PreHook(HuskCopBrain, 'clbk_death', 'on_death_remove_joker_ib', function(self, my_unit, damage_info)
-		if self._unit and _G.VoidUITimerAddons and MinionInfobox and MinionInfobox:child("joker_"..self._unit:id()) then
+		if self._unit and MinionInfobox and MinionInfobox:child("joker_"..self._unit:id()) then
 			MinionInfobox:child("joker_"..self._unit:id()):remove()	
 		end
 	end)
@@ -123,7 +123,7 @@ elseif RequiredScript == "lib/units/enemies/cop/huskcopbrain" then
 elseif RequiredScript == "lib/units/enemies/cop/copdamage" then
 
 	Hooks:PostHook(CopDamage, '_on_damage_received', 'update_joker_health_bar', function(self, damage_info)
-		if self._unit and _G.VoidUITimerAddon and MinionInfobox then
+		if self._unit and MinionInfobox then
 			if MinionInfobox:child("joker_"..self._unit:id()) then
 				MinionInfobox:child("joker_"..self._unit:id()):update_info(self._health_ratio)
 			end
@@ -135,7 +135,7 @@ elseif RequiredScript == "lib/units/enemies/cop/copdamage" then
 		end
 	end)
 	Hooks:PreHook(CopDamage, "_call_listeners", "show_joker_kills", function (self, damage_info)
-		if self._dead and _G.VoidUITimerAddon and MinionInfobox then
+		if self._dead and MinionInfobox then
 			local infobox = MinionInfobox:child("joker_"..damage_info.attacker_unit:id())
 			if VoidUI_IB.options.jokers_kills and damage_info.attacker_unit and infobox then
 				infobox:set_value()

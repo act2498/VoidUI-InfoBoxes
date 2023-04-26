@@ -79,7 +79,6 @@ VoidUI_IB_Menu.default_menu = "infobox" --The default menu to open
 VoidUI_IB_Menu.MainClass = VoidUI_IB and VoidUI_IB or {} --The main class
 
 function VoidUI_IB_Menu:refresh_align_hud(item)
-	--log("refresh_align_hud")
 	local id = string.sub(item.id,string.len(item.id))
 	hud = managers.hud and managers.hud._hud_infobox[tonumber(id)]
 	if hud then

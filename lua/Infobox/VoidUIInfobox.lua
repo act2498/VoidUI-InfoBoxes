@@ -298,10 +298,10 @@ function VoidUIInfobox:remove()
                     self._panel:set_x(math.lerp(panel_x, panel_x + panel_w, p))
                 end
             end)
-            VoidUIInfobox.childrens[self.id] = nil
             self = nil
             icons_panel:remove(self._panel)
         end)
+        VoidUIInfobox.childrens[self.id] = nil
     end
     if hud and hud.sort_boxes then
         hud:sort_boxes()

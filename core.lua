@@ -78,6 +78,7 @@ VoidUI_IB.get_texture_by_name = {
 		["Bridge"] = get_texture_by_achievement("bph_10"),
 		["Escape"] = get_texture_by_achievement("bph_10"),
 		["Crane"] = {texture = "guis/dlcs/big_bank/textures/pd2/pre_planning/preplan_icon_types", texture_rect = VoidUI_IB:get_texture_rect(42,8,1)},
+		["Assemble"] = {texture = "guis/textures/pd2/hud_pickups", texture_rect = VoidUI_IB:get_texture_rect(32,4,3)},
 		["Fire"] = {texture = "guis/textures/pd2/pd2_waypoints", texture_rect = VoidUI_IB:get_texture_rect(32,5,2)},
 		["Achievement"] = {texture = "guis/textures/pd2/mission_briefing/difficulty_icons", texture_rect = VoidUI_IB:get_texture_rect(32,1,2)},
 		["arrest_cooldown"] = tweak_data.hud_icons.crime_spree_cloaker_arrest,

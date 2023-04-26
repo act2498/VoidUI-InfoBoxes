@@ -2,7 +2,6 @@ Hooks:PostHook( HUDAssaultCorner, "init", "something_funnyxd", function(self, da
 	if not self._custom_hud_panel then
 		return
 	end
-	_G.VoidUITimerAddon = true
 
 	local icons_panel = self._custom_hud_panel:child("icons_panel")
 	icons_panel:set_w(600 * self._scale)
@@ -18,51 +17,64 @@ Hooks:PostHook(HUDAssaultCorner, "setup_icons_panel", "vuib_make_it_bigger", fun
 		log("[VoidUI Infoboxes] "..message)
 		managers.chat:_receive_message(1, "[VoidUI Infoboxes]", message, Color("fc0394"))
 	end
-
+	local int_manager = managers.interaction
 	if VoidUI_IB.options.kills_infobox then
-		local kills_panel = CounterInfobox:new({
-			id = "kills", value = 0, type = "Counter"
+		CounterInfobox:new({
+			id = "kills"
 		})
 		if VoidUI_IB.options.special_kills and not VoidUI_IB.options.special_kills_infobox then
 			kills_panel:set_value("0 | x0")
 		end
 	end
 	if VoidUI_IB.options.special_kills and VoidUI_IB.options.special_kills_infobox then
-		local special_kills_panel = CounterInfobox:new({
+		CounterInfobox:new({
 			id = "special_kills"
 		})
 	end
 	if VoidUI_IB.options.enemies_infobox then
-		local enemies_panel = CounterInfobox:new({
+		CounterInfobox:new({
 			id = "enemies"
 		})
 	end
 	if VoidUI_IB.options.special_enemies_infobox then
-		local special_enemies_panel = CounterInfobox:new({
+		CounterInfobox:new({
 			id = "special_enemies"
 		})
 	end
 	if VoidUI_IB.options.civs_infobox then
-		local civs_panel = CounterInfobox:new({
-			id = "civs"
+		CounterInfobox:new({
+			id = "civs", value = table.size(managers.enemy._civilian_data.unit_data)
 		})
 	end
 	if VoidUI_IB.options.lootbags_infobox then
-		local lootbags_panel = CounterInfobox:new({
-			id = "lootbags", value = VoidUI_IB.options.SeparateBagged and "0 | x0" or 0
+		local value = VoidUI_IB.options.SeparateBagged and int_manager.bagged.." | x"..int_manager.unbagged or int_manager.bagged + int_manager.unbagged
+		CounterInfobox:new({
+			id = "lootbags", value = value
+		})
+	end
+	if VoidUI_IB.options.possible_loot then
+		CounterInfobox:new({
+			id = "possible_loot", value = #int_manager.possible_loot
 		})
 	end
 	if VoidUI_IB.options.gagepacks_infobox then
-		local gagepacks_panel = CounterInfobox:new({
+		CounterInfobox:new({
 			id = "gagepacks"
 		})
 	end
 	if VoidUI_IB.options.Camera_infobox and not CounterInfobox:child("Camera") then
-		local camera_panel = CounterInfobox:new({
+		CounterInfobox:new({
 			id = "Camera"
 		})
 	end
 
+	if VoidUI_IB.options.collectables then
+		for name, count in ipairs(int_manager.loot_collectables) do
+			CollectableInfobox:new({
+				id = name, value = count
+			})
+		end
+	end
 
 	if VoidUI_IB.options.timers then
 		for _,unit in ipairs(World:find_units_quick("all", 1)) do
@@ -143,10 +155,10 @@ function HUDAssaultCorner:add_custom_time(data)
 	end
 end
 
-function HUDAssaultCorner:update_box(id, value)
+function HUDAssaultCorner:update_box(id, value, _type)
 	local infobox = VoidUIInfobox:child(id)
 	if not infobox then
-		local InfoboxClass = type == "Collectable" and CollectableInfobox or CounterInfobox
+		local InfoboxClass = _type == "Collectable" and CollectableInfobox or CounterInfobox
 		InfoboxClass:new({
 			id = id,
 			value = value

@@ -5,10 +5,10 @@ local function chat_debug(str)
 		managers.chat:_receive_message(1, "[VoidUI Infoboxes]", str, Color("#94fc03"))
 	end
 end
-if not VoidUI then return end
+--Rewrite to use BaseInteractionEXT:set_active
+if not VoidUI_IB then return end
 if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidUI_IB.options.SeparateBagged then
 	Hooks:PostHook(ObjectInteractionManager, "init", "VoidUI_InfoBox_init", function(self)
-		--Credit goes to HoloInfo author.
 		self.custom = {}
 		self.unbagged = 0
 		self.bagged = 0
@@ -23,7 +23,6 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 		"pex_cutter", "police_uniform", "circle_cutter", "medallion", "chimichanga", "liquid_nitrogen", "c4_x3", "president_key", "cas_bfd_tool"}
 		self.skipped_lootbags_id = {"turret_part"}
 		self._loot_bags = {}
-		self._tmp_loot_bags = {}
 		self.loot_collectables = {}
 		self.possible_loot = {}
 		self._skipped_units = {
@@ -66,60 +65,86 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 		self.custom.loot_collectables = {}
 	end)
 	
-	Hooks:PostHook(ObjectInteractionManager, "update", "VoidUI_InfoBox_Update", function(self, t, dt)
-		for i = #self._tmp_loot_bags, 1, -1 do
-			local data = self._tmp_loot_bags[i]
-			local unit = data.unit
-			if alive(unit) and unit.interaction and unit:interaction():active() then
-				local carry_id = unit:carry_data() and unit:carry_data():carry_id()
-				local interact_type = unit:interaction().tweak_data
-				local level_id = managers.job:current_level_id()
-				if (level_id and self._skipped_units[level_id] and unit:unit_data() and unit:unit_data().unit_id) and (table.contains(self._skipped_units[level_id], tostring(unit:unit_data().unit_id)) or table.contains(self._skipped_units[level_id], "all")) then
-					table.remove(self._tmp_loot_bags, i)
-					return
-				end
-				if carry_id and not tweak_data.carry[carry_id].skip_exit_secure or interact_type and tweak_data.carry[interact_type] and not tweak_data.carry[carry_id].skip_exit_secure == true or interact_type == "weapon_case" then
-					local name = unit:carry_data() and unit:carry_data():carry_id() or interact_type
-					if table.contains(self.skipped_lootbags_id, name) or tostring(carry_id) == "unit:vehicle_falcogini" or tostring(carry_id) == "vehicle_falcogini" then return table.remove(self._tmp_loot_bags, i) end
-					self._loot_bags[unit:id()] = true
-					if not table.contains(self.lootbag_ids, tostring(unit:name())) then
-						if VoidUI_IB.options.debug_lootbags then
-							chat_debug("Adding unbagged bag to counter. Name = "..tostring(name).."\nID = "..tostring(unit:unit_data().unit_id).."\nUnit name: "..tostring(unit:name()))
-						end
-						self.unbagged = self.unbagged + 1
-					else
-						self.bagged = self.bagged + 1
-					end
-					self:update_loot_count()
-				end
-				local pickup_id = unit:base() and unit:base().small_loot
-				if not pickup_id and unit:interaction().tweak_data then
-					int_data = tweak_data.interaction[unit:interaction().tweak_data]
-					pickup_id = unit:interaction()._special_equipment and unit:interaction()._special_equipment or (int_data and int_data.special_equipment_block) and int_data.special_equipment_block or nil
-				end
-				if pickup_id then
-					if self.name_by_lootID[pickup_id] then
-						local name = self.name_by_lootID[pickup_id]
-						if not self.custom.loot_collectables[name] then 
-							self.custom.loot_collectables[name] = 0
-						end
-						self.loot_collectables[unit:id()] = true
-						self:update_collectable_count(name, 1)
-					elseif not table.contains(self.skipped, pickup_id) and VoidUI_IB.options.debug_show_missing_id then
-						chat_debug("Missing collectable ID: "..pickup_id)
-					end
-				end
-				if interact_type == "crate_loot" or interact_type == "crate_loot_crowbar" then
-					table.insert(self.possible_loot, unit:id())
-					self:update_possible_loot()
-				end
-			end
-			table.remove(self._tmp_loot_bags, i)
+	local function _get_pickup_id(unit)
+		local pickup_id = unit:base() and unit:base().small_loot
+
+		if not pickup_id and unit:interaction().tweak_data then
+			int_data = tweak_data.interaction[unit:interaction().tweak_data]
+			pickup_id = unit:interaction()._special_equipment and unit:interaction()._special_equipment or (int_data and int_data.special_equipment_block) and int_data.special_equipment_block or nil
 		end
-	end)
+		return pickup_id
+	end
+	
+	local function _get_unit_type(unit)
+		local carry_id = unit:carry_data() and unit:carry_data():carry_id()
+		local interact_type = unit:interaction().tweak_data
+
+		if carry_id then
+			if tweak_data.carry[carry_id].skip_exit_secure then
+				return "skipped"
+			elseif carry_id == "unit:vehicle_falcogini" or carry_id == "vehicle_falcogini" then
+				return "skipped"
+			end
+			return "lootbag"
+		elseif interact_type and tweak_data.carry[interact_type] then
+			if tweak_data.carry[interact_type].skip_exit_secure then
+				return "skipped"
+			end
+			return "lootbag"
+		elseif interact_type == "weapon_case" then
+			return "lootbag"
+		elseif interact_type == "crate_loot" or interact_type == "crate_loot_crowbar" then
+			return "possible_loot"
+		end
+
+		if _get_pickup_id(unit) then
+			return "collectable"
+		end
+	end
 
 	Hooks:PostHook(ObjectInteractionManager, "add_unit", "VoidUI_InfoBox_AddUnit", function(self, unit)
-		table.insert(self._tmp_loot_bags, { unit = unit })
+		if alive(unit) then
+			local carry_id = unit:carry_data() and unit:carry_data():carry_id()
+			local interact_type = unit:interaction().tweak_data
+			local level_id = managers.job:current_level_id()
+			local unit_id = unit:unit_data() and unit:unit_data().unit_id
+			if (level_id and self._skipped_units[level_id] and unit_id) and (table.contains(self._skipped_units[level_id], tostring(unit_id)) or table.contains(self._skipped_units[level_id], "all")) then
+				return
+			end
+			local unit_type = _get_unit_type(unit)
+
+			if unit_type == "lootbag" then
+				local name = unit:carry_data() and unit:carry_data():carry_id() or interact_type
+				if table.contains(self.skipped_lootbags_id, name) then
+					return
+				end
+				self._loot_bags[unit:id()] = true
+				if table.contains(self.lootbag_ids, tostring(unit:name())) then
+					self.bagged = self.bagged + 1
+				else
+					if VoidUI_IB.options.debug_lootbags then
+						chat_debug("Adding unbagged bag to counter. Name = "..tostring(name).."\nID = "..tostring(unit:unit_data().unit_id).."\nUnit name: "..tostring(unit:name()))
+					end
+					self.unbagged = self.unbagged + 1
+				end
+				self:update_loot_count()
+			elseif unit_type == "collectable" then
+				local pickup_id = _get_pickup_id(unit)
+				if self.name_by_lootID[pickup_id] then
+					local name = self.name_by_lootID[pickup_id]
+					if not self.custom.loot_collectables[name] then 
+						self.custom.loot_collectables[name] = 0
+					end
+					self.loot_collectables[unit:id()] = name
+					self:update_collectable_count(name, 1)
+				elseif not table.contains(self.skipped, pickup_id) and VoidUI_IB.options.debug_show_missing_id then
+					chat_debug("Missing collectable ID: "..pickup_id)
+				end
+			elseif unit_type == "possible_loot" then
+				table.insert(self.possible_loot, unit:id())
+				self:update_possible_loot()
+			end
+		end
 	end)
 
 	Hooks:PostHook(ObjectInteractionManager, "remove_unit", "VoidUI_InfoBox_RemoveUnit", function(self, unit)
@@ -133,16 +158,9 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 			self:update_loot_count()
 		end
 		if self.loot_collectables[unit:id()] then
+			local name = self.loot_collectables[unit:id()]
 			self.loot_collectables[unit:id()] = nil
-			local name
-			if unit:base() and unit:base().small_loot then
-				name = unit:base().small_loot
-			elseif unit:interaction() and unit:interaction()._special_equipment then
-				name = unit:interaction()._special_equipment
-			elseif unit:interaction() and unit:interaction().tweak_data and tweak_data.interaction[unit:interaction().tweak_data].special_equipment_block then
-				name = tweak_data.interaction[unit:interaction().tweak_data].special_equipment_block
-			end
-			self:update_collectable_count(self.name_by_lootID[name] and self.name_by_lootID[name] or "skipped", -1)
+			self:update_collectable_count(self.name_by_lootID[name] and self.name_by_lootID[name] or tostring(name), -1)
 		end
 		if table.contains(self.possible_loot, unit:id()) then
 			table.remove(self.possible_loot, table.index_of(self.possible_loot, unit:id()))
@@ -151,23 +169,31 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 	end)
 
 	function ObjectInteractionManager:update_possible_loot()
+		if not managers.hud or not managers.hud._hud_assault_corner then
+			return --HUDAssaultCorner will fetch the count on its own while initializing
+		end
 		local count = #self.possible_loot
 		managers.hud._hud_assault_corner:update_box("possible_loot", count)
 	end
 
 	function ObjectInteractionManager:update_loot_count()
-		if _G.VoidUITimerAddon then
-			if VoidUI_IB.options.SeparateBagged then
-				local string = tostring(self.bagged).." | x"..tostring(self.unbagged)
-				managers.hud._hud_assault_corner:update_box("lootbags", string)
-			else
-				managers.hud._hud_assault_corner:update_box("lootbags", self.bagged + self.unbagged)
-			end
+		if not managers.hud or not managers.hud._hud_assault_corner then
+			return --HUDAssaultCorner will fetch the count on its own while initializing
+		end
+		if VoidUI_IB.options.SeparateBagged then
+			local string = tostring(self.bagged).." | x"..tostring(self.unbagged)
+			managers.hud._hud_assault_corner:update_box("lootbags", string)
+		else
+			managers.hud._hud_assault_corner:update_box("lootbags", self.bagged + self.unbagged)
 		end
 	end
 
 	function ObjectInteractionManager:update_collectable_count(name_id, value)
-		if not _G.VoidUITimerAddon or not self.custom.loot_collectables[name_id] then return end
+		if not managers.hud or not managers.hud._hud_assault_corner then
+			self.custom.loot_collectables[name_id] = self.custom.loot_collectables[name_id] + value
+			--Store the value for later
+			return --HUDAssaultCorner will fetch the count on its own while initializing
+		end
 		self.custom.loot_collectables[name_id] = self.custom.loot_collectables[name_id] + value
 		managers.hud._hud_assault_corner:update_box(name_id, self.custom.loot_collectables[name_id], "Collectable")
 	end

@@ -140,11 +140,8 @@ end
 
 Hooks:PostHook(HUDManager, "_setup_player_info_hud_pd2", "setup_InfoboxHUD", function(self)
     hud = managers.hud:script(PlayerBase.PLAYER_INFO_HUD_PD2)
-	--self._hud_objectives = HUDObjectives:new(hud)
     self._hud_infobox = {}
     for i=1, 4 do
-        --log("Creating infobox: "..tostring(i))
         table.insert(self._hud_infobox, HUDInfobox:new(hud, i))
     end
-    --table.insert(self._hud_infobox, HUDInfobox:new(hud, 1))
 end)

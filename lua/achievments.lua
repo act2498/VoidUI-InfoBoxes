@@ -4,8 +4,6 @@ local tracked_elements = {
     pines = {{type="masks", achiev_id="xmas_2014"}}
 }
 if RequiredScript == "lib/managers/mission/elementawardachievment" and VoidUI_IB.options.Achievement then
-    --It's nice that San Martin's Bank heist is enabling / disabling the AwardAchievement element. In case players fail achievment,
-    --it'll get disabled, and script below just reads that.
     Hooks:PostHook(ElementAwardAchievment, "on_toggle", "VUIB_Track_Achievements1", function(self, value)
         if not tracked_elements[Global.game_settings.level_id] then
             Hooks:RemovePostHook("VUIB_Track_Achievements1")
@@ -62,30 +60,20 @@ if RequiredScript == "lib/managers/mission/elementawardachievment" and VoidUI_IB
                     if achiev_data.masks then
                         local available_masks = deep_clone(achiev_data.masks)
                         local valid_mask_count = 0
-
                         for _, peer in pairs(managers.network:session():all_peers()) do
                             local current_mask = peer:mask_id()
-
                             if table.contains(available_masks, current_mask) then
                                 table.delete(available_masks, current_mask)
-
                                 valid_mask_count = valid_mask_count + 1
                             else
                                 all_masks_valid = false
                             end
                         end
-
                         for _, char in pairs(managers.criminals._characters) do
-                            if not char.data.ai then
-                                if true then
-                                    -- Nothing
-                                end
-                            else
+                            if char.data.ai then
                                 local current_mask = char.data.mask_id
-
                                 if table.contains(available_masks, current_mask) then
                                     table.delete(available_masks, current_mask)
-
                                     valid_mask_count = valid_mask_count + 1
                                 else
                                     all_masks_valid = false

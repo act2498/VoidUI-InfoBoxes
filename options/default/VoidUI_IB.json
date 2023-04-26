@@ -193,6 +193,7 @@
 		"timer_Helicopter":true,
 		"timer_Barcode_scanner":true,
 		"timer_Breaching":true,
+		"timer_Assemble":true,
 		"timer_Analyze":true,
 		"timer_Upload":true,
 		"timer_Unknown":true,

@@ -430,6 +430,10 @@
     "VoidUI_IB_ReverseAnimation_title" : "Reverse Animation",
     "VoidUI_IB_AnimateBorders_title" : "Animate Borders",
     "VoidUI_IB_timer_Fire_title" : "Fire",
+    "VoidUI_IB_timer_Fire" : "Fire",
     "VoidUI_IB_timer_Fire_desc" : "Fire timer, currently used in Breakfast in Tijuana heist.",
+    "VoidUI_IB_timer_Assemble_title" : "Assemble",
+    "VoidUI_IB_timer_Assemble" : "Assemble",
+    "VoidUI_IB_timer_Assemble_desc" : "Assemble timer, currently used in Biker heist [Day 1]",
     "VoidUI_IB_placeholder" : ""
 }

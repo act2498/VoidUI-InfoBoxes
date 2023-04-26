@@ -22,7 +22,6 @@ if RequiredScript == "core/lib/managers/mission/coreelementtoggle" and VoidUI_IB
 elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	--Moved tables out of the local functions to prevent recreating them every time the script is loaded
 	--[[
-	
 	]]
 	local filter_table = {
 
@@ -55,7 +54,7 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		["bph"] = {"135953", "142253"},
 		["mex_cooking"] = {"199503"},
 		--["born"] = {},
-		["chew"] = {"143791", "143795", "144291", "144295", "144541", "144545"},
+		["chew"] = {"143791", "143795", "144291", "144295", "144541", "144545", "144791", "144795"},
 		["trai"] = {"140824", "141024", "137899", "137899", "139724", "141673"},
 		["spa"] = {"100181", "100540"},
 		["framing_frame_1"] = {"103086"},
@@ -66,6 +65,9 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	local filter_names_table = {
 		--[[
 		]]
+		["born"] = {
+			["101033"] = "Assemble"
+		},
 		["pex"] = {
 			["101587"] = "Fire",
 			["137324"] = "Hack"
@@ -264,7 +266,7 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	end)
 
 	Hooks:PostHook(ElementTimer, '_start_digital_guis_count_down', 'VUIBA_start_timer', function(self, ...)
-		if not self._created and self._values.enabled and _G.VoidUITimerAddon and filter_timer(self._id) and TimerInfobox then
+		if not self._created and self._values.enabled and filter_timer(self._id) and TimerInfobox then
 			local name, achievement_id = filter_names(self._id)
 			local InfoboxClass = TimerInfobox
 			if achievement_id then
@@ -278,7 +280,7 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	end)
 
 	Hooks:PostHook(ElementTimer, 'timer_operation_start', 'VUIBA_operation_start', function(self, ...)
-		if not self._created and self._values.enabled and _G.VoidUITimerAddon and filter_timer(self._id) and TimerInfobox then
+		if not self._created and self._values.enabled and filter_timer(self._id) and TimerInfobox then
 			local name, achievement_id = filter_names(self._id)
 			local InfoboxClass = TimerInfobox
 			if achievement_id then
@@ -288,13 +290,13 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 				name = name, id = "e_"..self._id, time = self._timer, achievement_id = achievement_id, editor_name = self._editor_name, instance_name = self._values.instance_name
 			})
 			self._created = true
-		elseif self._created and _G.VoidUITimerAddon and self._values.enabled and TimerInfobox:child("e_"..self._id) then
+		elseif self._created and self._values.enabled and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):set_jammed(false)
 		end
 	end)
 
 	Hooks:PostHook(ElementTimer, "timer_operation_add_time", "VUIBA_operation_add_time", function(self, ...)
-		if self._created and _G.VoidUITimerAddon and TimerInfobox and TimerInfobox:child("e_"..self._id) then
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			local init_time = TimerInfobox:child("e_"..self._id)._init_time
 			if self._timer > init_time then
 				TimerInfobox:child("e_"..self._id)._init_time = self._timer
@@ -302,19 +304,19 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		end
 	end)
 	Hooks:PostHook(ElementTimer, "timer_operation_reset", "VUIBA_operation_reset", function(self, ...)
-		if self._created and _G.VoidUITimerAddon and TimerInfobox and TimerInfobox:child("e_"..self._id) then
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id)._init_time = self._timer
 		end
 	end)
 	Hooks:PostHook(ElementTimer, "timer_operation_set_time", "VUIBA_operation_set_time", function(self, ...)
-		if self._created and _G.VoidUITimerAddon and TimerInfobox and TimerInfobox:child("e_"..self._id) then
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id)._init_time = self._timer
 		end
 	end)
 
 	Hooks:PostHook(ElementTimer, 'timer_operation_pause', 'VUIBA_operation_pause', function(self, ...)
 		local level_id = Global.game_settings.level_id
-		if self._created and _G.VoidUITimerAddon and TimerInfobox and TimerInfobox:child("e_"..self._id) then
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):set_jammed(true)
 		end
 		
@@ -324,7 +326,7 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	end)
 	
 	Hooks:PostHook(ElementTimer, "remove_updator", "VUIBA_remove_updator", function(self)
-		if self._created and _G.VoidUITimerAddon and TimerInfobox and TimerInfobox:child("e_"..self._id) then
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):set_jammed(true)
 		end
 	end)
@@ -344,20 +346,20 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	end)
 
 	Hooks:PostHook(ElementTimer, 'on_executed', "VUIBA_remove_updator", function(self, ...)
-		if self._created and _G.VoidUITimerAddon and TimerInfobox and TimerInfobox:child("e_"..self._id) then
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):remove()
 			self._created = false
 		end
 	end)
 	Hooks:PostHook(ElementTimer, 'client_on_executed', "VUIBA_remove_updator_client", function(self, ...)
-		if self._created and _G.VoidUITimerAddon and TimerInfobox and TimerInfobox:child("e_"..self._id) then
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):remove()
 			self._created = false
 		end
 	end)
 
 	Hooks:PostHook(ElementTimer, 'update_timer', 'VUIBA_update_timers', function(self, ...)
-		if not _G.VoidUITimerAddon or not self._values.enabled and TimerInfobox then
+		if not self._values.enabled and TimerInfobox then
 			return
 		end
 		if self._created and TimerInfobox:child("e_"..self._id) then
@@ -372,7 +374,7 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	ElementTimerOperator = ElementTimerOperator or class(CoreMissionScriptElement.MissionScriptElement)
 
 	Hooks:PostHook(ElementTimerOperator, 'client_on_executed', "VUIBA_timers_client", function(self)
-		if not _G.VoidUITimerAddon or not self._values.enabled or not TimerInfobox then
+		if not self._values.enabled or not TimerInfobox then
 			return
 		end
 		local time = self:get_random_table_value_float(self:value("time"))

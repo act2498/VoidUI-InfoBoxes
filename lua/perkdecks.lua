@@ -4,10 +4,9 @@ function get_current_perkdeck()
     local current_specialization = managers.skilltree:get_specialization_value("current_specialization")
 	local specialization_data = tweak_data.skilltree.specializations[current_specialization]
 	local specialization_text = specialization_data and specialization_data.name_id or " "
-    --log(specialization_text)
     return specialization_text
 end
---log(get_current_perkdeck())
+
 if VoidUI_IB.options.skill_ArmorRecovery and RequiredScript == "lib/units/beings/player/playerdamage" then
     Hooks:PostHook(PlayerDamage, "set_regenerate_timer_to_max", "VUIB_track_aregen", function(self)
         if get_current_perkdeck() == "menu_st_spec_19" then return Hooks:RemovePostHook("VUIB_track_aregen") end

@@ -1,5 +1,4 @@
 TimerInfobox = TimerInfobox or class(VoidUIInfobox)
---Change the border texture to the timer
 
 if VoidUI_IB.options.AnimateTimerBorders then
     function TimerInfobox:new_border()
@@ -12,7 +11,6 @@ if VoidUI_IB.options.AnimateTimerBorders then
             layer = 2,
             w = panel_w,
             h = panel_h
-            --render_template = "VertexColorTexturedRadial"
         })
         return new_border
     end
@@ -101,12 +99,7 @@ function TimerInfobox:_set_value(time)
         self:_anim_border()
     end
 end
---[[
-    local data = {
-        id = "timer_test", name = "Timer", time = 15
-    }
-    managers.hud._hud_assault_corner:add_custom_timer(data)
-]]
+
 if VoidUI_IB.options.ReverseTimerAnimation then
     function TimerInfobox:_anim_border()
         self._border:stop()

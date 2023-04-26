@@ -18,9 +18,6 @@ elseif RequiredScript == "lib/managers/statisticsmanager" then
 	local specials_killed_by_sentry = 0
 	local kills = 0
 	function StatisticsManager:kill_counter(data)
-		if not _G.VoidUITimerAddon then
-			return
-		end
 		local stats_name = data.stats_name or data.name
 		if alive(data.weapon_unit) and data.weapon_unit.base and data.weapon_unit:base() and data.weapon_unit:base().get_type then
 			local weapon_type = data.weapon_unit:base():get_type()

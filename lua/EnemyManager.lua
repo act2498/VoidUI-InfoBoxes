@@ -82,19 +82,15 @@ if VoidUI_IB.options.enemies_infobox or VoidUI_IB.options.special_enemies_infobo
 end
 if VoidUI_IB.options.civs_infobox then
     Hooks:PostHook(EnemyManager, 'on_civilian_died', 'vuib_remove_civilian', function(self, dead_unit, damage_info)
-        if _G.VoidUITimerAddon then
-            managers.hud._hud_assault_corner:update_box("civs", table.size(self._civilian_data.unit_data))
-        end
+        managers.hud._hud_assault_corner:update_box("civs", table.size(self._civilian_data.unit_data))
     end)
 
     Hooks:PostHook(EnemyManager, 'on_civilian_destroyed', 'vuib_remove_civilian2', function(self, dead_unit, damage_info)
-        if _G.VoidUITimerAddon then
-            managers.hud._hud_assault_corner:update_box("civs", table.size(self._civilian_data.unit_data))
-        end
+        managers.hud._hud_assault_corner:update_box("civs", table.size(self._civilian_data.unit_data))
     end)
 
     Hooks:PostHook(EnemyManager, 'register_civilian', 'vuib_add_civilian', function(self,unit)
-        if _G.VoidUITimerAddon and managers.hud._hud_assault_corner then
+        if managers.hud._hud_assault_corner then
             managers.hud._hud_assault_corner:update_box("civs", table.size(self._civilian_data.unit_data))
         end
     end)

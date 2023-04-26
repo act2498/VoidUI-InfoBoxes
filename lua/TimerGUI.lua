@@ -18,7 +18,7 @@ Hooks:PostHook(TimerGui, 'init', 'init_hud_timer', function(self, ...)
 end)
 Hooks:RemovePostHook("add_new_timer")
 Hooks:PostHook(TimerGui, '_start', 'add_new_timer', function(self, ...)
-	if not self._created and _G.VoidUITimerAddon or not TimerInfobox then
+	if not self._created or not TimerInfobox then
 	    if self._unit:interaction() then
 	    	if self._unit:interaction().tweak_data then
 	    		self._name = self._unit_names[self._unit:interaction().tweak_data]
@@ -40,17 +40,12 @@ Hooks:PostHook(TimerGui, '_start', 'add_new_timer', function(self, ...)
 		TimerInfobox:new({
 			id = "timer_"..self._unit:id(), name = self._name, time = self._current_timer, type = "Timer"
 		})
-		--[[
-			TimerInfobox:new({
-			id = "timer_test", name = "Timer", time = 10
-		})
-		]]
 		self._created = true
     end
 end)
 
 Hooks:PostHook(TimerGui, 'update', 'update_timers', function(self, ...)
-	if not _G.VoidUITimerAddon or not TimerInfobox then
+	if not TimerInfobox then
 		return
 	end
 	if not self._jammed then
@@ -67,7 +62,7 @@ Hooks:PostHook(TimerGui, 'update', 'update_timers', function(self, ...)
 end)
 
 Hooks:PostHook(TimerGui, '_set_jammed', 'set_jammed_VoidUI', function(self, jammed, ...)
-	if not _G.VoidUITimerAddon or not TimerInfobox then
+	if not TimerInfobox then
 		return
 	end
 	if TimerInfobox:child("timer_"..self._unit:id()) then
@@ -76,7 +71,7 @@ Hooks:PostHook(TimerGui, '_set_jammed', 'set_jammed_VoidUI', function(self, jamm
 end)
 
 Hooks:PostHook(TimerGui, 'done', 'remove_timer', function(self, ...)
-	if not _G.VoidUITimerAddon or not TimerInfobox then
+	if not TimerInfobox then
 		return
 	end
 	if TimerInfobox:child("timer_"..self._unit:id()) then
@@ -86,7 +81,7 @@ Hooks:PostHook(TimerGui, 'done', 'remove_timer', function(self, ...)
 end)
 
 Hooks:PostHook(TimerGui, '_set_done', 'remove_timer2', function(self, ...)
-	if not _G.VoidUITimerAddon or not TimerInfobox then
+	if not TimerInfobox then
 		return
 	end
 	if TimerInfobox:child("timer_"..self._unit:id()) then
@@ -96,7 +91,7 @@ Hooks:PostHook(TimerGui, '_set_done', 'remove_timer2', function(self, ...)
 end)
 
 Hooks:PostHook(TimerGui, 'destroy', 'remove_timer3', function(self, ...)
-	if not _G.VoidUITimerAddon or not TimerInfobox then
+	if not TimerInfobox then
 		return
 	end
 	if TimerInfobox:child("timer_"..self._unit:id()) then
@@ -106,7 +101,7 @@ Hooks:PostHook(TimerGui, 'destroy', 'remove_timer3', function(self, ...)
 end)
 
 Hooks:PostHook(TimerGui, '_set_powered', 'jamm_timer', function(self, ...)
-	if not _G.VoidUITimerAddon or not TimerInfobox then
+	if not TimerInfobox then
 		return
 	end
 	if TimerInfobox:child("timer_"..self._unit:id()) then
@@ -115,7 +110,7 @@ Hooks:PostHook(TimerGui, '_set_powered', 'jamm_timer', function(self, ...)
 end)
 
 Hooks:PostHook(TimerGui, 'post_event', 'remove_timer4', function(self, ...)
-	if not _G.VoidUITimerAddon or not TimerInfobox then
+	if not TimerInfobox then
 		return
 	end
 	if event == self._done_event then

@@ -1,6 +1,6 @@
 if VoidUI_IB.options.timer_Tape_loop then
     Hooks:PostHook(SecurityCamera, '_start_tape_loop', 'add_camera_timebox', function(self, tape_loop_t)
-        if not tape_loop_t or not _G.VoidUITimerAddon or not TimerInfobox then return end
+        if not tape_loop_t or not TimerInfobox then return end
         local data = {
             id = "loop_"..self._unit:id(),
             name = "Tape_loop",
@@ -26,7 +26,7 @@ if VoidUI_IB.options.timer_Tape_loop then
     end)
 
     Hooks:PreHook(SecurityCamera, '_activate_tape_loop_restart', 'add_camera_restart_timebox', function(self, restart_t)
-        if not restart_t or not _G.VoidUITimerAddon or not TimerInfobox then return end
+        if not restart_t or not TimerInfobox then return end
         local data = {
             id = "loop_"..self._unit:id(),
             name = "Tape_loop",
@@ -40,12 +40,12 @@ if VoidUI_IB.options.timer_Tape_loop then
     end)
 
     Hooks:PostHook(SecurityCamera, '_deactivate_tape_loop', 'remove_camera_timebox2', function(self, ...)
-        if not _G.VoidUITimerAddon or not TimerInfobox then return end
+        if not TimerInfobox then return end
         managers.hud._hud_assault_corner:remove_custom_timer("loop_"..self._unit:id())
     end)
 
     Hooks:PreHook(SecurityCamera, '_deactivate_tape_loop_restart', 'remove_camera_timebox3', function(self, ...)
-        if not _G.VoidUITimerAddon or not TimerInfobox then return end
+        if not TimerInfobox then return end
         
         if TimerInfobox:child("cu_loop_"..self._unit:id()) then
             local time = TimerInfobox:child("cu_loop_"..self._unit:id()).value
