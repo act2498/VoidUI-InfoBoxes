@@ -137,7 +137,7 @@ end
 function HUDAssaultCorner:add_custom_time(data)
 	if not self._timer then self._timer = {} end
 	local infobox = VoidUIInfobox:child(data.id)
-	if infobox then return end
+	if not infobox then return end
 	if data.time and self._timer[data.id] then
 		if data.operation then
 			if data.operation == "add" then
