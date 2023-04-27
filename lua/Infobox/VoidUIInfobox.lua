@@ -115,6 +115,8 @@ function VoidUIInfobox:init(data)
     else
         self:prepare_hud(data)
     end
+
+    return self --Return the class soo other stuff can use a pointer to it.
 end
 
 function VoidUIInfobox:prepare_hud(data)
