@@ -19,10 +19,10 @@ Hooks:PostHook(HUDAssaultCorner, "setup_icons_panel", "vuib_make_it_bigger", fun
 	end
 	local int_manager = managers.interaction
 	if VoidUI_IB.options.kills_infobox then
-		CounterInfobox:new({
+		local kills_panel = CounterInfobox:new({
 			id = "kills"
 		})
-		if VoidUI_IB.options.special_kills and not VoidUI_IB.options.special_kills_infobox then
+		if VoidUI_IB.options.special_kills and kills_panel and not VoidUI_IB.options.special_kills_infobox then
 			kills_panel:set_value("0 | x0")
 		end
 	end
