@@ -58,7 +58,8 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		["trai"] = {"140824", "141024", "137899", "137899", "139724", "141673"},
 		["spa"] = {"100181", "100540"},
 		["framing_frame_1"] = {"103086"},
-		["gallery"] = {"103086"}
+		["gallery"] = {"103086"},
+		["red2"] = {"136002"}
 		--["Election_Funds"] = {'101311', '100019'
 	}
 
@@ -83,7 +84,8 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 			["131773"] = "Time_lock"
 		},
 		["mad"] = {
-			["133167"] = "Analyze"
+			["133167"] = "Analyze",
+			["131662"] = "EMP"
 		},
 		["spa"] = {
 			["101992"] = {"Achievement", "spa_5"},
@@ -216,6 +218,9 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		["mus"] = {
 			["130318"] = "Time_lock",
 			["130393"] = "Time_lock"
+		},
+		["glace"] = {
+			["102333"] = "Plane"
 		}
 	}
 

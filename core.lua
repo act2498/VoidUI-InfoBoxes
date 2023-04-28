@@ -77,6 +77,8 @@ VoidUI_IB.get_texture_by_name = {
 		["RatVanFlee"] = get_texture_by_achievement("hot_wheels"),
 		["Bridge"] = get_texture_by_achievement("bph_10"),
 		["Escape"] = get_texture_by_achievement("bph_10"),
+		["Plane"] = get_texture_by_achievement("charliesierra_5"),
+		["EMP"] = get_texture_by_achievement("cow_10"),
 		["Crane"] = {texture = "guis/dlcs/big_bank/textures/pd2/pre_planning/preplan_icon_types", texture_rect = VoidUI_IB:get_texture_rect(42,8,1)},
 		["Assemble"] = {texture = "guis/textures/pd2/hud_pickups", texture_rect = VoidUI_IB:get_texture_rect(32,4,3)},
 		["Fire"] = {texture = "guis/textures/pd2/pd2_waypoints", texture_rect = VoidUI_IB:get_texture_rect(32,5,2)},
@@ -86,6 +88,7 @@ VoidUI_IB.get_texture_by_name = {
 		--Collectables
 		["Jewellery"] = {texture = "guis/dlcs/dah/textures/pd2/achievements_atlas_dah", texture_rect = VoidUI_IB:get_texture_rect(85,1,2)},
         ["Money"] = {texture = "guis/dlcs/trk/textures/pd2/achievements_atlas6", texture_rect = {609, 0, 85, 85}},
+		["Lrm_Keycard"] = tweak_data.hud_icons.lrm_keycard,
 		["Keycard"] = tweak_data.hud_icons.equipment_bank_manager_key,
 		["Planks"] = tweak_data.hud_icons.equipment_planks,
 		["MuriaticAcid"] = tweak_data.hud_icons.equipment_muriatic_acid,

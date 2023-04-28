@@ -145,6 +145,24 @@
 		},
 		{
 			"type" : "toggle",
+			"id" : "timer_EMP",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_EMP_title",
+			"description" : "VoidUI_IB_timer_EMP_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
+			"id" : "timer_Plane",
+			"parent" : "timers",
+			"title" : "VoidUI_IB_timer_Plane_title",
+			"description" : "VoidUI_IB_timer_Plane_desc",
+			"callback": "refresh_infoboxes",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
 			"id" : "timer_Escape",
 			"parent" : "timers",
 			"title" : "VoidUI_IB_timer_Escape_title",

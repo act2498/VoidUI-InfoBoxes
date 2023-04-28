@@ -85,6 +85,15 @@
 		},
 		{
 			"type" : "toggle",
+			"id" : "collectable_Lrm_Keycard",
+			"parent" : "collectables",
+			"callback": "refresh_infoboxes",
+			"title" : "VoidUI_IB_collectable_Lrm_Keycard_title",
+			"description" : "VoidUI_IB_collectable_Lrm_Keycard_desc",
+			"default_value" : true
+		},
+		{
+			"type" : "toggle",
 			"id" : "collectable_Planks",
 			"parent" : "collectables",
 			"callback": "refresh_infoboxes",

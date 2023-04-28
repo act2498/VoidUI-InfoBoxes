@@ -60,7 +60,7 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 			hydrogen_chloride = "HydrogenChloride", caustic_soda = "CausticSoda", acid = "MuriaticAcid",
 			paper_roll = "CPaper", printer_ink = "CInk", blow_torch = "BlowTorch", thermite_paste = "Thermite", thermite = "Thermite",
 			barrel = "Barrel", receiver = "Receiver", stock = "Stock", slot_machine_payout = "Money", federali_medal = "Gold",
-			mus_small_artifact = "Money"
+			mus_small_artifact = "Money", lrm_keycard = "Lrm_Keycard"
 		}
 		self.custom.loot_collectables = {}
 	end)

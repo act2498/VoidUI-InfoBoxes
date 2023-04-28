@@ -435,5 +435,13 @@
     "VoidUI_IB_timer_Assemble_title" : "Assemble",
     "VoidUI_IB_timer_Assemble" : "Assemble",
     "VoidUI_IB_timer_Assemble_desc" : "Assemble timer, currently used in Biker heist [Day 1]",
+    "VoidUI_IB_timer_EMP" : "EMP",
+    "VoidUI_IB_timer_EMP_title" : "EMP",
+    "VoidUI_IB_timer_EMP_desc" : "EMP timer, currently used in Boiling Point heist.",
+    "VoidUI_IB_timer_Plane" : "Plane",
+    "VoidUI_IB_timer_Plane_title" : "Plane",
+    "VoidUI_IB_timer_Plane_desc" : "Plane timer, currently used in Greenbridge heist.",
+    "VoidUI_IB_collectable_Lrm_Keycard_title" : "Lost safe Keycard",
+    "VoidUI_IB_collectable_Lrm_Keycard_desc" : "This is a keycard used in The Lost Tapes /aka/ Bad For Business event.",
     "VoidUI_IB_placeholder" : ""
 }

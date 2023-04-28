@@ -7,8 +7,8 @@ Hooks:PostHook(TimerGui, 'init', 'init_hud_timer', function(self, ...)
 	    votingmachine2 = "Hack", hack_suburbia = "Hack", hold_hack_comp = "Hack", hack_suburbia_axis = "Hack",
 		hack_suburbia_outline = "Hack", hold_hack_server_room = "Hack", hack_ipad = "Hack", mcm_laptop = "Hack",
 		tag_laptop = "Hack", hack_suburbia_jammed_y = "Hack", hold_new_hack = "Hack", chca_start_hacking = "Hack",
-		are_laptop = "Hack", hack_trai_outline = "Hack",
-	    hold_download_keys = "Download", uload_database = "Upload",
+		are_laptop = "Hack", hack_trai_outline = "Hack", corp_hack_email = "Hack",
+	    hold_download_keys = "Download", uload_database = "Upload", corp_download_email = "Download",
 	    hold_analyze_evidence = "Analyze",
 	    upload_database = "Upload",
 		unlock_gate = "Timer",
@@ -23,7 +23,7 @@ Hooks:PostHook(TimerGui, '_start', 'add_new_timer', function(self, ...)
 	    	if self._unit:interaction().tweak_data then
 	    		self._name = self._unit_names[self._unit:interaction().tweak_data]
 				if self._name == nil then
-					self._name = "Timer"
+					self._name = "Unknown"
 					if VoidUI_IB.options.debug_show_missing_id then
 						log("[VoidUI Infoboxes] Missing unit name for interactionID: "..tostring(self._unit:interaction().tweak_data).." With time: "..tostring(self._current_timer).."s")
 						managers.chat:_receive_message(1, "[VoidUI Infoboxes]", "Missing unit name for interactionID: "..tostring(self._unit:interaction().tweak_data).." With time: "..tostring(self._current_timer).."s", Color("#fc0352"))
@@ -38,7 +38,7 @@ Hooks:PostHook(TimerGui, '_start', 'add_new_timer', function(self, ...)
 	    	self._name = "Timer"
 	    end
 		TimerInfobox:new({
-			id = "timer_"..self._unit:id(), name = self._name, time = self._current_timer, type = "Timer"
+			id = "timer_"..self._unit:id(), name = self._name, time = self._current_timer, type = "Timer", editor_name = "U: "..tostring(self._unit:interaction().tweak_data)
 		})
 		self._created = true
     end
