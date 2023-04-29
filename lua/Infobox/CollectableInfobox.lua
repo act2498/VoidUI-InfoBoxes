@@ -4,7 +4,7 @@ function CollectableInfobox:FetchInfo(data)
     self._priority = VoidUI_IB.options.Collectable_priority or 6
     self._type = "Collectable"
 
-    self.value = data.value
+    self._value = data.value and data.value or 0
 end
 
 function CollectableInfobox:check_valid()
@@ -18,7 +18,7 @@ function CollectableInfobox:_set_value(value)
         self:remove()
         return
     end
-    if value == self.value then
+    if self.value and value == self.value then
         return
     end
     if alive(self._text_panel) and self._text_panel.set_text then

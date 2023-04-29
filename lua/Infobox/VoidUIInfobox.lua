@@ -123,7 +123,7 @@ function VoidUIInfobox:prepare_hud(data)
     local function _spawn_box(box)
         if box:PrepareBox(data) then
             box:create(data)
-            box:_set_value(self.value)
+            box:_set_value(data.value and data.value or 0)
         else
             box:DebugPrint("Something is really wrong with the HUD scripts! "..tostring(self.id).." failed to load!")
             box:remove()
@@ -355,7 +355,6 @@ function VoidUIInfobox:PrepareBox()
     VoidUIInfobox.childrens[self.id] = self
 
     if not hud then
-        log("This infobox is waiting for HUD; "..tostring(self.id))
         return false
     end
     icons_panel = hud._icons_panel

@@ -4,7 +4,7 @@ function CounterInfobox:FetchInfo(data)
     self._priority = VoidUI_IB.options.Counter_priority or 6
     self._type = "Counter"
 
-    self._value = data.value or 0
+    self._value = data.value and data.value or 0
 end
 
 function CounterInfobox:check_valid()
@@ -26,7 +26,7 @@ end
 
 function CounterInfobox:_set_value(value)
     if not value then
-        self:Error("No value provided for CounterInfobox "..tostring(self.id).."!")
+        self:Error("No value provided for CounterInfobox "..tostring(self.id).."!\n"..tostring(debug.traceback()))
     end
     local scale, panel_w, panel_h = self:get_scale_options()
     local font_size = panel_h / 2

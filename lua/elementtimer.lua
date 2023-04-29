@@ -219,6 +219,9 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 			["130318"] = "Time_lock",
 			["130393"] = "Time_lock"
 		},
+		["kosugi"] = {
+			["100953"] = "Time_lock"
+		},
 		["glace"] = {
 			["102333"] = "Plane"
 		}

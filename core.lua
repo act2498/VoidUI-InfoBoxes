@@ -88,7 +88,7 @@ VoidUI_IB.get_texture_by_name = {
 		--Collectables
 		["Jewellery"] = {texture = "guis/dlcs/dah/textures/pd2/achievements_atlas_dah", texture_rect = VoidUI_IB:get_texture_rect(85,1,2)},
         ["Money"] = {texture = "guis/dlcs/trk/textures/pd2/achievements_atlas6", texture_rect = {609, 0, 85, 85}},
-		["Lrm_Keycard"] = tweak_data.hud_icons.lrm_keycard,
+		["Lrm_Keycard"] = tweak_data.hud_icons.equipment_rfid_tag_01,
 		["Keycard"] = tweak_data.hud_icons.equipment_bank_manager_key,
 		["Planks"] = tweak_data.hud_icons.equipment_planks,
 		["MuriaticAcid"] = tweak_data.hud_icons.equipment_muriatic_acid,

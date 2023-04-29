@@ -5,7 +5,7 @@ local function chat_debug(str)
 		managers.chat:_receive_message(1, "[VoidUI Infoboxes]", str, Color("#94fc03"))
 	end
 end
---Rewrite to use BaseInteractionEXT:set_active
+
 if not VoidUI_IB then return end
 if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidUI_IB.options.SeparateBagged then
 	Hooks:PostHook(ObjectInteractionManager, "init", "VoidUI_InfoBox_init", function(self)
@@ -79,7 +79,9 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 		local carry_id = unit:carry_data() and unit:carry_data():carry_id()
 		local interact_type = unit:interaction().tweak_data
 
-		if carry_id then
+		if table.contains(managers.interaction.lootbag_ids, tostring(unit:name())) then
+			return "bagged_loot"
+		elseif carry_id then
 			if tweak_data.carry[carry_id].skip_exit_secure then
 				return "skipped"
 			elseif carry_id == "unit:vehicle_falcogini" or carry_id == "vehicle_falcogini" then
@@ -91,9 +93,7 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 				return "skipped"
 			end
 			return "lootbag"
-		elseif interact_type == "weapon_case" then
-			return "lootbag"
-		elseif interact_type == "crate_loot" or interact_type == "crate_loot_crowbar" then
+		elseif interact_type == "weapon_case" or interact_type == "crate_loot" or interact_type == "crate_loot_crowbar" then
 			return "possible_loot"
 		end
 
@@ -102,6 +102,7 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 		end
 	end
 
+	Hooks:RemovePostHook("VoidUI_InfoBox_AddUnit")
 	Hooks:PostHook(ObjectInteractionManager, "add_unit", "VoidUI_InfoBox_AddUnit", function(self, unit)
 		if alive(unit) then
 			local carry_id = unit:carry_data() and unit:carry_data():carry_id()
@@ -112,21 +113,23 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 				return
 			end
 			local unit_type = _get_unit_type(unit)
-
-			if unit_type == "lootbag" then
+			if not unit_type or unit_type == "skipped" then
+				return
+			end
+			if unit_type == "bagged_loot" then
+				self._loot_bags[unit:id()] = true
+				self.bagged = self.bagged + 1
+				self:update_loot_count()
+			elseif unit_type == "lootbag" then
 				local name = unit:carry_data() and unit:carry_data():carry_id() or interact_type
 				if table.contains(self.skipped_lootbags_id, name) then
 					return
 				end
 				self._loot_bags[unit:id()] = true
-				if table.contains(self.lootbag_ids, tostring(unit:name())) then
-					self.bagged = self.bagged + 1
-				else
-					if VoidUI_IB.options.debug_lootbags then
-						chat_debug("Adding unbagged bag to counter. Name = "..tostring(name).."\nID = "..tostring(unit:unit_data().unit_id).."\nUnit name: "..tostring(unit:name()))
-					end
-					self.unbagged = self.unbagged + 1
+				if VoidUI_IB.options.debug_lootbags then
+					chat_debug("Adding unbagged bag to counter. Name = "..tostring(name).."\nID = "..tostring(unit:unit_data().unit_id).."\nUnit name: "..tostring(unit:name()))
 				end
+				self.unbagged = self.unbagged + 1
 				self:update_loot_count()
 			elseif unit_type == "collectable" then
 				local pickup_id = _get_pickup_id(unit)

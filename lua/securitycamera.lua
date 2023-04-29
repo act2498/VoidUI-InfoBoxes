@@ -8,15 +8,6 @@ if VoidUI_IB.options.timer_Tape_loop then
             operation = "set_time",
             manual_remove = true
         }
-
-        --[[
-            local data = {
-                id = "loop_test",
-                name = "Tape_loop",
-                time = 15
-            }
-            managers.hud._hud_assault_corner:add_custom_timer(data)
-        ]]
         if not TimerInfobox:child("cu_loop_"..self._unit:id()) then
             managers.hud._hud_assault_corner:add_custom_timer(data)
         else
