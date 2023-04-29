@@ -4,7 +4,7 @@ function CounterInfobox:FetchInfo(data)
     self._priority = VoidUI_IB.options.Counter_priority or 6
     self._type = "Counter"
 
-    self.value = data.value or 0
+    self._value = data.value or 0
 end
 
 function CounterInfobox:check_valid()
@@ -18,9 +18,10 @@ function CounterInfobox:check_valid()
 end
 
 function CounterInfobox:create(data)
-    self._text_panel = self:new_text(self.value)
+    self._text_panel = self:new_text(self._value)
 
-    self:set_value(self.value)
+    self:set_value(self._value)
+    self._value = nil
 end
 
 function CounterInfobox:_set_value(value)
@@ -30,13 +31,13 @@ function CounterInfobox:_set_value(value)
     local scale, panel_w, panel_h = self:get_scale_options()
     local font_size = panel_h / 2
     value = tostring(value)
-    if value == "0 | x0" or value == "0" then
-        if VoidUI_IB.options.remove_empty then
+    if VoidUI_IB.options.remove_empty then
+        if value == "0 | x0" or value == "0" then
             self:remove()
             return
         end
     end
-    if value == self.value then
+    if self.value and value == self.value then
         return
     else
         self.value = value

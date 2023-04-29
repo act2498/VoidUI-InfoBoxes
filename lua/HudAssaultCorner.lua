@@ -1,4 +1,4 @@
-Hooks:PostHook( HUDAssaultCorner, "init", "something_funnyxd", function(self, data)
+Hooks:PostHook(HUDAssaultCorner, "init", "something_funnyxd", function(self, data)
 	if not self._custom_hud_panel then
 		return
 	end
@@ -19,12 +19,15 @@ Hooks:PostHook(HUDAssaultCorner, "setup_icons_panel", "vuib_make_it_bigger", fun
 	end
 	local int_manager = managers.interaction
 	if VoidUI_IB.options.kills_infobox then
-		local kills_panel = CounterInfobox:new({
-			id = "kills"
-		})
+		local value
 		if VoidUI_IB.options.special_kills and kills_panel and not VoidUI_IB.options.special_kills_infobox then
-			kills_panel:set_value("0 | x0")
+			value = "0 | x0"
+		else
+			value = 0
 		end
+		local kills_panel = CounterInfobox:new({
+			id = "kills", value = value
+		})
 	end
 	if VoidUI_IB.options.special_kills and VoidUI_IB.options.special_kills_infobox then
 		CounterInfobox:new({
@@ -32,13 +35,19 @@ Hooks:PostHook(HUDAssaultCorner, "setup_icons_panel", "vuib_make_it_bigger", fun
 		})
 	end
 	if VoidUI_IB.options.enemies_infobox then
+		local value
+		if not VoidUI_IB.options.special_enemies_infobox then
+            value = managers.enemy._enemy_data.nr_units
+        else
+            value = managers.enemy._enemy_data.nr_units - managers.enemy._enemy_data.nr_special_units
+        end
 		CounterInfobox:new({
-			id = "enemies"
+			id = "enemies", value = value
 		})
 	end
 	if VoidUI_IB.options.special_enemies_infobox then
 		CounterInfobox:new({
-			id = "special_enemies"
+			id = "special_enemies", value = managers.enemy._enemy_data.nr_special_units
 		})
 	end
 	if VoidUI_IB.options.civs_infobox then

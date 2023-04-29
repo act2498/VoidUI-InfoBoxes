@@ -102,14 +102,14 @@ function VoidUIInfobox:init(data)
     end
     self.id = data.id
     self.string_id = data.name_id or data.id
-
+    
     self:FetchInfo(data)
 
     if not self:check_valid(data) then
         self:remove()
         return
     end
-
+    
     if self:PrepareBox() then
         self:create(data)
     else
@@ -120,17 +120,22 @@ function VoidUIInfobox:init(data)
 end
 
 function VoidUIInfobox:prepare_hud(data)
-    if managers.hud._hud_assault_corner and managers.hud._hud_objectives then return true end
-    HUDManager = HUDManager or class()
-    Hooks:PostHook(HUDManager, "_setup_player_info_hud_pd2", self.id.."_InfoboxCallback", function()
-        if self:PrepareBox(data) then
-            self:create(data)
-            self:_set_value(self.value)
+    local function _spawn_box(box)
+        if box:PrepareBox(data) then
+            box:create(data)
+            box:_set_value(self.value)
         else
-            self:DebugPrint("Something is really wrong with the HUD scripts! "..tostring(self.id).." failed to load!")
-            self:remove()
+            box:DebugPrint("Something is really wrong with the HUD scripts! "..tostring(self.id).." failed to load!")
+            box:remove()
         end
-        Hooks:RemovePostHook(self.id.."_InfoboxCallback")
+    end
+    if managers.hud._hud_assault_corner and managers.hud._hud_objectives then
+        _spawn_box(self)
+        return
+    end
+    HUDManager = HUDManager or class()
+    Hooks:PostHook(HUDManager, "_setup_player_info_hud_pd2", self.id.."_IBWaitingCallback", function()
+        _spawn_box(self)
     end)
 end
 
@@ -350,6 +355,7 @@ function VoidUIInfobox:PrepareBox()
     VoidUIInfobox.childrens[self.id] = self
 
     if not hud then
+        log("This infobox is waiting for HUD; "..tostring(self.id))
         return false
     end
     icons_panel = hud._icons_panel
