@@ -40,7 +40,7 @@ if VoidUI_IB.options.timer_Tape_loop then
     end)
 
     Hooks:PostHook(SecurityCamera, '_deactivate_tape_loop', 'remove_camera_timebox2', function(self, ...)
-        if not TimerInfobox then return end
+        if not TimerInfobox or not managers.hud or not managers.hud._hud_assault_corner then return end
         managers.hud._hud_assault_corner:remove_custom_timer("loop_"..self._unit:id())
     end)
 
