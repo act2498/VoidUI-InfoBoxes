@@ -25,4 +25,13 @@ if level == "framing_frame_3" then
 			end
         end
     end)
+elseif level == "mia_2" then
+	Hooks:PreHook(MissionManager, "_add_script", "VUIBA_HLM2_TimerFix", function(self, data)
+        for _, element in pairs(data.elements) do
+			if element.id == 101282 then
+				table.insert(element.values.elements, 101043)
+				table.insert(element.values.elements, 100053)
+			end
+        end
+	end)
 end

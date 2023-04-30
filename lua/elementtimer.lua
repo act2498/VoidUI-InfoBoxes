@@ -1,25 +1,5 @@
 if not VoidUI_IB.options.timers then return end
---Let's fix Hotline Miami day 2 timers soo they actually stop when player reach the commisar.
-if RequiredScript == "core/lib/managers/mission/coreelementtoggle" and VoidUI_IB.options.timer_MiaCokeDestroy then
-	core:module("CoreElementToggle")
-	core:import("CoreMissionScriptElement")
-	ElementToggle = ElementToggle or class(CoreMissionScriptElement.MissionScriptElement)
-	Hooks:PostHook(ElementToggle, 'on_executed', 'stop_timers_pls', function(self,instigator)
-		if Global.game_settings.level_id == "mia_2" then
-			if tostring(self._id) == "101282" then
-				for _, script in pairs(managers.mission:scripts()) do
-					for idx, element in pairs(script:elements()) do
-						idx = tostring(idx)
-						if element and idx == "101043" or idx == "100053" then
-							element:remove_updator()
-							element:on_executed()
-						end
-					end
-				end
-			end
-		end		
-	end)
-elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
+if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	--Moved tables out of the local functions to prevent recreating them every time the script is loaded
 	--[[
 	]]
@@ -332,6 +312,13 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		end
 	end)
 	
+	Hooks:PostHook(ElementTimer, 'set_enabled', 'VUIBA_set_enabled', function(self, enabled, ...)
+		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) and not enabled then
+			TimerInfobox:child("e_"..self._id):remove()
+			self:remove_updator()
+		end
+	end)
+
 	Hooks:PostHook(ElementTimer, "remove_updator", "VUIBA_remove_updator", function(self)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):set_jammed(true)
