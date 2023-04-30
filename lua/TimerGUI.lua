@@ -18,9 +18,11 @@ Hooks:PostHook(TimerGui, 'init', 'init_hud_timer', function(self, ...)
 end)
 Hooks:RemovePostHook("add_new_timer")
 Hooks:PostHook(TimerGui, '_start', 'add_new_timer', function(self, ...)
-	if not self._created or not TimerInfobox then
+	if not self._created and TimerInfobox and alive(self._unit) then
+		local editor_name
 	    if self._unit:interaction() then
 	    	if self._unit:interaction().tweak_data then
+				editor_name = self._unit:interaction().tweak_data
 	    		self._name = self._unit_names[self._unit:interaction().tweak_data]
 				if self._name == nil then
 					self._name = "Unknown"
@@ -38,7 +40,7 @@ Hooks:PostHook(TimerGui, '_start', 'add_new_timer', function(self, ...)
 	    	self._name = "Timer"
 	    end
 		TimerInfobox:new({
-			id = "timer_"..self._unit:id(), name = self._name, time = self._current_timer, type = "Timer", editor_name = "U: "..tostring(self._unit:interaction().tweak_data)
+			id = "timer_"..self._unit:id(), name = self._name, time = self._current_timer, type = "Timer", editor_name = editor_name and "U_"..editor_name or nil
 		})
 		self._created = true
     end

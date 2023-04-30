@@ -39,23 +39,23 @@ if VoidUI_IB.options.enemies_infobox or VoidUI_IB.options.special_enemies_infobo
         return name
     end
 
-    function EnemyManager:VUIB_update_units_count(stats_name)
+    function EnemyManager:VUIB_update_units_count(stats_name, value)
         local hud = managers.hud._hud_assault_corner
         if not hud then return end --HUD not loaded yet
+        local value = value or 1
         if not VoidUI_IB.options.special_enemies_infobox then
             hud:update_box("enemies", self._enemy_data.nr_units)
         else
             hud:update_box("special_enemies", self._enemy_data.nr_special_units)
             hud:update_box("enemies", self._enemy_data.nr_units - self._enemy_data.nr_special_units)
         end
-
         local enemy_name = check_special_name(stats_name)
         if VoidUI_IB.options["enemy_"..enemy_name.."_infobox"] then
             if not special_counter[enemy_name] then
                 special_counter[enemy_name] = 0
             end
 
-            special_counter[enemy_name] = special_counter[enemy_name] + 1
+            special_counter[enemy_name] = special_counter[enemy_name] + value
             hud:update_box("enemy_"..enemy_name, special_counter[enemy_name])
         end
     end
@@ -77,7 +77,7 @@ if VoidUI_IB.options.enemies_infobox or VoidUI_IB.options.special_enemies_infobo
         if table.contains(special_unit_ids, stats_name) then
             self._enemy_data.nr_special_units = self._enemy_data.nr_special_units - 1
         end
-        self:VUIB_update_units_count(stats_name)
+        self:VUIB_update_units_count(stats_name, -1)
     end)
 end
 if VoidUI_IB.options.civs_infobox then

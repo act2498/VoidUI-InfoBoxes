@@ -45,7 +45,6 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		["fex"] = {"146490"},
 		["bex"] = {"101816"},
 		["watchdogs_2"] = {"103729", "101128"},
-		["red2"] = {"136202"},
 		["pal"] = {"102290", "100083"},
 		["friend"] = {"103457", "103465", "103471", "131444", "131424"},
 		["cane"] = {"133328", "134228", "135128", "133028", "136628", "135428", "132728", "136028", "133928", "134528", "134828", "132428"},
@@ -59,7 +58,7 @@ elseif RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		["spa"] = {"100181", "100540"},
 		["framing_frame_1"] = {"103086"},
 		["gallery"] = {"103086"},
-		["red2"] = {"136002"}
+		["red2"] = {"136002", "136202"}
 		--["Election_Funds"] = {'101311', '100019'
 	}
 
