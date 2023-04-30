@@ -5,7 +5,7 @@ core:import("CoreTable")
 local level = Global.level_data and Global.level_data.level_id or ""
 
 if level == "framing_frame_3" then
-    Hooks:PreHook(MissionManager, "_add_script", "InfoBoxes_BagCountFix", function(self, data)
+    Hooks:PreHook(MissionManager, "_add_script", "VUIBA_MissionManager_add_script", function(self, data)
         for _, element in pairs(data.elements) do
 			if element.id == 100538 then
 				table.remove(element.values.elements, table.index_of(element.values.elements, 100743))
@@ -26,7 +26,7 @@ if level == "framing_frame_3" then
         end
     end)
 elseif level == "mia_2" then
-	Hooks:PreHook(MissionManager, "_add_script", "VUIBA_HLM2_TimerFix", function(self, data)
+	Hooks:PreHook(MissionManager, "_add_script", "VUIBA_MissionManager_add_script", function(self, data)
         for _, element in pairs(data.elements) do
 			if element.id == 101282 then
 				table.insert(element.values.elements, 101043)

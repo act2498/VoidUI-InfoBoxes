@@ -8,7 +8,7 @@ end
 
 if not VoidUI_IB then return end
 if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidUI_IB.options.SeparateBagged then
-	Hooks:PostHook(ObjectInteractionManager, "init", "VoidUI_InfoBox_init", function(self)
+	Hooks:PostHook(ObjectInteractionManager, "init", "VUIBA_ObjectInteractionManager_init", function(self)
 		self.custom = {}
 		self.unbagged = 0
 		self.bagged = 0
@@ -16,7 +16,7 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 		self.skipped = {"harddrive", "gas", "cas_usb_key", "alarm_clock", "fertilizer", "wire", "diesel", "saw", "car_jack",
 		"blueprints", "bottle", "cas_sleeping_gas", "cas_winch_hook", "briefcase", "keychain", "equipment_blueprint", "cargo_strap",
 		"stapler", "chavez_key", "server", "ranc_hammer", "ranc_mould", "ranc_sheriff_star", "audio_device", "c4", "ranc_acid",
-		"laptop", "ranc_silver_ingot", "tape", "fingerprint",
+		"laptop", "ranc_silver_ingot", "tape", "fingerprint", "flammable_liquid", "blood_sample", "blood_sample_verified", "plates",
 		"barcode_opa_locka", "barcode_edgewater", "barcode_isles_beach", "barcode_downtown", "barcode_brickell", "c4_x1",
 		"lance_part", "chas_keychain_forklift", "laxative", "defibrillator_paddles", "notepad", "adrenaline", "documents",
 		"business_card", "hand", "c4_stackable", "evidence", "pex_loaded_card", "pex_unloaded_card", "pex_loaded_card_lvl_2",
@@ -103,7 +103,7 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 	end
 
 	Hooks:RemovePostHook("VoidUI_InfoBox_AddUnit")
-	Hooks:PostHook(ObjectInteractionManager, "add_unit", "VoidUI_InfoBox_AddUnit", function(self, unit)
+	Hooks:PostHook(ObjectInteractionManager, "add_unit", "VUIBA_ObjectInteractionManager_add_unit", function(self, unit)
 		if alive(unit) then
 			local carry_id = unit:carry_data() and unit:carry_data():carry_id()
 			local interact_type = unit:interaction().tweak_data
@@ -150,7 +150,7 @@ if VoidUI_IB.options.lootbags_infobox or VoidUI_IB.options.collectables or VoidU
 		end
 	end)
 
-	Hooks:PostHook(ObjectInteractionManager, "remove_unit", "VoidUI_InfoBox_RemoveUnit", function(self, unit)
+	Hooks:PostHook(ObjectInteractionManager, "remove_unit", "VUIBA_ObjectInteractionManager_remove_unit", function(self, unit)
 		if self._loot_bags[unit:id()] then
 			self._loot_bags[unit:id()] = nil
 			if not table.contains(self.lootbag_ids, tostring(unit:name())) then

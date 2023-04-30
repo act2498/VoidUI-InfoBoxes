@@ -50,7 +50,8 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		},
 		["pex"] = {
 			["101587"] = "Fire",
-			["137324"] = "Hack"
+			["137324"] = "Hack",
+			["135324"] = "Hack"
 		},
 		["tRain_returns"] = {
 			["130023"] = "Time_lock",
@@ -94,9 +95,6 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 			["101877"] = "Helicopter",
 			["102401"] = "Escape",
 			["102727"] = {"Achievement", "corp_11"}
-		},
-		["brb"] = {
-			["132976"] = "Cutter"
 		},
 		["wwh"] = {
 			["100321"] = "Fuel"
@@ -172,7 +170,8 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 			["104482"] = {"Achievement", "nmh_11"}
 		},
 		["brb"] = {
-			["100653"] = "Breaching"
+			["100653"] = "Breaching",
+			["132976"] = "Cutter"
 		},
 		["chca"] = {
 			["102674"] = "Helicopter"
@@ -246,13 +245,13 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	}
 	ElementTimer = ElementTimer or class(CoreMissionScriptElement.MissionScriptElement)
 
-	Hooks:PostHook(ElementTimer, "init", "VUIBA_init", function(self, ...)
+	Hooks:PostHook(ElementTimer, "init", "VUIBA_ElementTimer_init", function(self, ...)
 		TimerInfobox = _G.TimerInfobox
 		AchievementInfobox = _G.AchievementInfobox
 		self._created = false
 	end)
 
-	Hooks:PostHook(ElementTimer, '_start_digital_guis_count_down', 'VUIBA_start_timer', function(self, ...)
+	Hooks:PostHook(ElementTimer, '_start_digital_guis_count_down', 'VUIBA_ElementTimer_start_timer', function(self, ...)
 		if not self._created and self._values.enabled and filter_timer(self._id) and TimerInfobox then
 			local name, achievement_id = filter_names(self._id)
 			local InfoboxClass = TimerInfobox
@@ -266,7 +265,7 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		end
 	end)
 
-	Hooks:PostHook(ElementTimer, 'timer_operation_start', 'VUIBA_operation_start', function(self, ...)
+	Hooks:PostHook(ElementTimer, 'timer_operation_start', 'VUIBA_ElementTimer_operation_start', function(self, ...)
 		if not self._created and self._values.enabled and filter_timer(self._id) and TimerInfobox then
 			local name, achievement_id = filter_names(self._id)
 			local InfoboxClass = TimerInfobox
@@ -282,7 +281,7 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		end
 	end)
 
-	Hooks:PostHook(ElementTimer, "timer_operation_add_time", "VUIBA_operation_add_time", function(self, ...)
+	Hooks:PostHook(ElementTimer, "timer_operation_add_time", "VUIBA_ElementTimer_operation_add_time", function(self, ...)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			local init_time = TimerInfobox:child("e_"..self._id)._init_time
 			if self._timer > init_time then
@@ -290,18 +289,18 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 			end
 		end
 	end)
-	Hooks:PostHook(ElementTimer, "timer_operation_reset", "VUIBA_operation_reset", function(self, ...)
+	Hooks:PostHook(ElementTimer, "timer_operation_reset", "VUIBA_ElementTimer_operation_reset", function(self, ...)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id)._init_time = self._timer
 		end
 	end)
-	Hooks:PostHook(ElementTimer, "timer_operation_set_time", "VUIBA_operation_set_time", function(self, ...)
+	Hooks:PostHook(ElementTimer, "timer_operation_set_time", "VUIBA_ElementTimer_operation_set_time", function(self, ...)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id)._init_time = self._timer
 		end
 	end)
 
-	Hooks:PostHook(ElementTimer, 'timer_operation_pause', 'VUIBA_operation_pause', function(self, ...)
+	Hooks:PostHook(ElementTimer, 'timer_operation_pause', 'VUIBA_ElementTimer_operation_pause', function(self, ...)
 		local level_id = Global.game_settings.level_id
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):set_jammed(true)
@@ -312,20 +311,20 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		end
 	end)
 	
-	Hooks:PostHook(ElementTimer, 'set_enabled', 'VUIBA_set_enabled', function(self, enabled, ...)
+	Hooks:PostHook(ElementTimer, 'set_enabled', 'VUIBA_ElementTimer_set_enabled', function(self, enabled, ...)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) and not enabled then
 			TimerInfobox:child("e_"..self._id):remove()
 			self:remove_updator()
 		end
 	end)
 
-	Hooks:PostHook(ElementTimer, "remove_updator", "VUIBA_remove_updator", function(self)
+	Hooks:PostHook(ElementTimer, "remove_updator", "VUIBA_ElementTimer_remove_updator", function(self)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):set_jammed(true)
 		end
 	end)
 
-	Hooks:PostHook(ElementTimer, 'add_updator', 'VUIBA_add_updator', function(self, ...)
+	Hooks:PostHook(ElementTimer, 'add_updator', 'VUIBA_ElementTimer_add_updator', function(self, ...)
 		if not self._created and self._values.enabled and filter_timer(self._id) then
 			local name, achievement_id = filter_names(self._id)
 			local InfoboxClass = TimerInfobox
@@ -339,20 +338,20 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		end
 	end)
 
-	Hooks:PostHook(ElementTimer, 'on_executed', "VUIBA_remove_updator", function(self, ...)
+	Hooks:PostHook(ElementTimer, 'on_executed', "VUIBA_ElementTimer_on_executed", function(self, ...)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):remove()
 			self._created = false
 		end
 	end)
-	Hooks:PostHook(ElementTimer, 'client_on_executed', "VUIBA_remove_updator_client", function(self, ...)
+	Hooks:PostHook(ElementTimer, 'client_on_executed', "VUIBA_ElementTimer_client_on_executed", function(self, ...)
 		if self._created and TimerInfobox and TimerInfobox:child("e_"..self._id) then
 			TimerInfobox:child("e_"..self._id):remove()
 			self._created = false
 		end
 	end)
 
-	Hooks:PostHook(ElementTimer, 'update_timer', 'VUIBA_update_timers', function(self, ...)
+	Hooks:PostHook(ElementTimer, 'update_timer', 'VUIBA_ElementTimer_update_timer', function(self, ...)
 		if not self._values.enabled and TimerInfobox then
 			return
 		end
@@ -367,7 +366,7 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 
 	ElementTimerOperator = ElementTimerOperator or class(CoreMissionScriptElement.MissionScriptElement)
 
-	Hooks:PostHook(ElementTimerOperator, 'client_on_executed', "VUIBA_timers_client", function(self)
+	Hooks:PostHook(ElementTimerOperator, 'client_on_executed', "VUIBA_ElementTimerOperator_client_on_executed", function(self)
 		if not self._values.enabled or not TimerInfobox then
 			return
 		end

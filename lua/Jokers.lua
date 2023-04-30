@@ -48,11 +48,11 @@ local function _add_joker_infobox(unit, peer_unit)
 end
 
 if RequiredScript == "lib/managers/group_ai_states/groupaistatebase" then
-	Hooks:PostHook(GroupAIStateBase, 'convert_hostage_to_criminal', 'add_joker_infobox', function(self, unit, peer_unit)
+	Hooks:PostHook(GroupAIStateBase, 'convert_hostage_to_criminal', 'VUIBA_GroupAIStateBase_convert_hostage_to_criminal', function(self, unit, peer_unit)
 		_add_joker_infobox(unit, peer_unit)
 	end)
 
-	Hooks:PreHook(GroupAIStateBase, 'remove_minion', 'remove_joker_infobox', function(self, minion_key, player_key)
+	Hooks:PreHook(GroupAIStateBase, 'remove_minion', 'VUIBA_GroupAIStateBase_remove_minion', function(self, minion_key, player_key)
 		local minion_unit = self._converted_police[minion_key]
 		if minion_unit and MinionInfobox:child("joker_"..minion_unit:id()) then
 			MinionInfobox:child("joker_"..minion_unit:id()):remove()
@@ -61,16 +61,16 @@ if RequiredScript == "lib/managers/group_ai_states/groupaistatebase" then
 	
 elseif RequiredScript == "lib/network/handlers/unitnetworkhandler" then
 
-	Hooks:PreHook(UnitNetworkHandler, 'hostage_trade', 'on_trade_remove_joker_ib', function(self, unit, enable, trade_success, skip_hint)
+	Hooks:PreHook(UnitNetworkHandler, 'hostage_trade', 'VUIBA_UnitNetworkHandler_hostage_trade', function(self, unit, enable, trade_success, skip_hint)
 		if unit and MinionInfobox:child("joker_"..unit:id()) then
 			MinionInfobox:child("joker_"..unit:id()):remove()
 		end
 	end)
-	Hooks:PostHook(UnitNetworkHandler, 'mark_minion', 'jk_fix1', function(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender)
+	Hooks:PostHook(UnitNetworkHandler, 'mark_minion', 'VUIBA_UnitNetworkHandler_mark_minion', function(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender)
 		local peer_unit = managers.network and managers.network:session() and alive(managers.network:session():peer(minion_owner_peer_id):unit()) and managers.network:session():peer(minion_owner_peer_id):unit()
 		_add_joker_infobox(unit, peer_unit)
 	end)
-	Hooks:PostHook(UnitNetworkHandler, 'remove_minion', 'jk_fix2', function(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender)
+	Hooks:PostHook(UnitNetworkHandler, 'remove_minion', 'VUIBA_UnitNetworkHandler_remove_minion', function(self, unit, minion_owner_peer_id, convert_enemies_health_multiplier_level, passive_convert_enemies_health_multiplier_level, sender)
 		if unit then
 			if VoidUI_IB.options.debug_jokers then
 				chat_debug("Attempt remove Joker with localscript".."\nID: "..tostring(unit:id()))
@@ -82,7 +82,7 @@ elseif RequiredScript == "lib/network/handlers/unitnetworkhandler" then
 	end)
 elseif RequiredScript == "lib/units/enemies/cop/huskcopbrain" then
 	
-	Hooks:PreHook(HuskCopBrain, 'clbk_death', 'on_death_remove_joker_ib', function(self, my_unit, damage_info)
+	Hooks:PreHook(HuskCopBrain, 'clbk_death', 'VUIBA_HuskCopBrain_clbk_death', function(self, my_unit, damage_info)
 		if self._unit and MinionInfobox:child("joker_"..self._unit:id()) then
 			MinionInfobox:child("joker_"..self._unit:id()):remove()	
 		end
@@ -90,19 +90,19 @@ elseif RequiredScript == "lib/units/enemies/cop/huskcopbrain" then
 	
 elseif RequiredScript == "lib/units/enemies/cop/copdamage" then
 
-	Hooks:PostHook(CopDamage, '_on_damage_received', 'update_joker_health_bar', function(self, damage_info)
+	Hooks:PostHook(CopDamage, '_on_damage_received', 'VUIBA_CopDamage__on_damage_received', function(self, damage_info)
 		if self._unit then
 			if MinionInfobox:child("joker_"..self._unit:id()) then
 				MinionInfobox:child("joker_"..self._unit:id()):update_info(self._health_ratio)
 			end
 		end
 	end)
-	Hooks:PostHook(CopDamage, "damage_mission", "remove_mission_killed_jokers", function(self, attack_data)
+	Hooks:PostHook(CopDamage, "damage_mission", "VUIBA_CopDamage_damage_mission", function(self, attack_data)
 		if self._unit and MinionInfobox:child("joker_"..self._unit:id()) then
 			MinionInfobox:child("joker_"..self._unit:id()):remove()
 		end
 	end)
-	Hooks:PreHook(CopDamage, "_call_listeners", "show_joker_kills", function (self, damage_info)
+	Hooks:PreHook(CopDamage, "_call_listeners", "VUIBA_CopDamage__call_listeners", function (self, damage_info)
 		if self._dead then
 			local infobox
 			if damage_info.attacker_unit then

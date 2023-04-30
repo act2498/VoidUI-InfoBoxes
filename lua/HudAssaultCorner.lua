@@ -1,4 +1,4 @@
-Hooks:PostHook(HUDAssaultCorner, "init", "something_funnyxd", function(self, data)
+Hooks:PostHook(HUDAssaultCorner, "init", "VUIBA_HUDAssaultCorner_init", function(self, data)
 	if not self._custom_hud_panel then
 		return
 	end
@@ -7,7 +7,7 @@ Hooks:PostHook(HUDAssaultCorner, "init", "something_funnyxd", function(self, dat
 	icons_panel:set_w(600 * self._scale)
 end)
 
-Hooks:PostHook(HUDAssaultCorner, "setup_icons_panel", "vuib_make_it_bigger", function(self)
+Hooks:PostHook(HUDAssaultCorner, "setup_icons_panel", "VUIBA_HUDAssaultCorner_setup_icons_panel", function(self)
 	self._custom_icons = {{},{},{},{},{},{}}
 	self._icons_panel:set_w(600 * self._scale)
 	self._icons_panel:set_right(self._custom_hud_panel:w())
@@ -166,6 +166,7 @@ end
 
 function HUDAssaultCorner:update_box(id, value, _type)
 	local infobox = VoidUIInfobox:child(id)
+	if VoidUI_IB.options.remove_empty and value == 0 or value == "0 | x0" then return end
 	if not infobox then
 		local InfoboxClass = _type == "Collectable" and CollectableInfobox or CounterInfobox
 		InfoboxClass:new({
@@ -179,7 +180,7 @@ function HUDAssaultCorner:update_box(id, value, _type)
 	end
 end
 
-Hooks:PostHook(HUDAssaultCorner, 'whisper_mode_changed', 'align_boxes_on_whisperstate_change', function(self, data)
+Hooks:PostHook(HUDAssaultCorner, 'whisper_mode_changed', 'VUIBA_HUDAssaultCorner_whisper_mode_changed', function(self, data)
 	local is_whisper_mode = managers.groupai and managers.groupai:state():whisper_mode()
 	--Since these panels are animated, we need some delay to wait for them to achieve alpha 0 or 1
 	DelayedCalls:Add("delay_sorting", 0.6, function()
@@ -190,21 +191,21 @@ Hooks:PostHook(HUDAssaultCorner, 'whisper_mode_changed', 'align_boxes_on_whisper
 	end
 end)
 
-Hooks:PostHook(HUDAssaultCorner, 'show_casing', 'align_boxes_please2', function(self, is_offseted, hostage_panel, big_logo)
+Hooks:PostHook(HUDAssaultCorner, 'show_casing', 'VUIBA_HUDAssaultCorner_show_casing', function(self, is_offseted, hostage_panel, big_logo)
 	self:sort_boxes()
 end)
-Hooks:PostHook(HUDAssaultCorner, '_set_hostage_offseted', 'align_timers_on_state_change', function(self, is_offseted, big_logo, ...)
+Hooks:PostHook(HUDAssaultCorner, '_set_hostage_offseted', 'VUIBA_HUDAssaultCorner__set_hostage_offseted', function(self, is_offseted, big_logo, ...)
 	self:sort_boxes()
 end)
-Hooks:PostHook(HUDAssaultCorner, '_offset_hostage', 'align_boxes_maybe', function(self, is_offseted, big_logo, ...)
-	self:sort_boxes()
-end)
-
-Hooks:PostHook(HUDAssaultCorner, '_hide_hostages', 'sort_boxes_again', function(self, ...)
+Hooks:PostHook(HUDAssaultCorner, '_offset_hostage', 'VUIBA_HUDAssaultCorner__offset_hostage', function(self, is_offseted, big_logo, ...)
 	self:sort_boxes()
 end)
 
-Hooks:PostHook(HUDAssaultCorner, '_show_hostages', 'sort_boxes_2', function(self, ...)
+Hooks:PostHook(HUDAssaultCorner, '_hide_hostages', 'VUIBA_HUDAssaultCorner__hide_hostages', function(self, ...)
+	self:sort_boxes()
+end)
+
+Hooks:PostHook(HUDAssaultCorner, '_show_hostages', 'VUIBA_HUDAssaultCorner__show_hostages', function(self, ...)
 	self:sort_boxes()
 end)
 

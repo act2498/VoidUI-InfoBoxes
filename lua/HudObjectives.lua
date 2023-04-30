@@ -1,6 +1,6 @@
 if RequiredScript == "lib/managers/hud/hudobjectives" then
     if VoidUI.options.enable_objectives then
-        Hooks:PostHook(HUDObjectives, "init", "vuib_objectives_make_skills_panel", function(self, hud)
+        Hooks:PostHook(HUDObjectives, "init", "VUIBA_HUDObjectives_init", function(self, hud)
             local objectives_panel = self._hud_panel:child("objectives_panel")
             if not self._scale then self._scale = VoidUI.options.hud_objectives_scale and VoidUI.options.hud_objectives_scale or VoidUI.options.hud_assault_scale end
             if not self._scale then log("Failed fetching the HUD Scale option! Setting to 1...") self._scale = 1 end
@@ -14,7 +14,7 @@ if RequiredScript == "lib/managers/hud/hudobjectives" then
             self._custom_icons = {{},{},{},{},{},{}}
         end)
 
-        Hooks:PostHook(HUDObjectives, "create_objective", "vuib_move_skills_panel_1", function(self, id, data)
+        Hooks:PostHook(HUDObjectives, "create_objective", "VUIBA_HUDObjectives_create_objective", function(self, id, data)
             local objectives_panel = self._hud_panel:child("objectives_panel")
             local panel_y = self._icons_panel:y()
             local destination = 40 * self._scale + ((32 * self._scale) * #self._objectives)
@@ -29,7 +29,7 @@ if RequiredScript == "lib/managers/hud/hudobjectives" then
             end)
         end)
 
-        Hooks:PostHook(HUDObjectives, "activate_objective", "vuib_move_skills_panel_2", function(self, id, data)
+        Hooks:PostHook(HUDObjectives, "activate_objective", "VUIBA_HUDObjectives_activate_objective", function(self, id, data)
             local objectives_panel = self._hud_panel:child("objectives_panel")
             local last_objective_panel = self._objectives[1]
             --self._skills_panel:set_top(last_objective_panel:bottom() + 5)

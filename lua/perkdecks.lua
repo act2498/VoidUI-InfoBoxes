@@ -8,15 +8,15 @@ function get_current_perkdeck()
 end
 
 if VoidUI_IB.options.skill_ArmorRecovery and RequiredScript == "lib/units/beings/player/playerdamage" then
-    Hooks:PostHook(PlayerDamage, "set_regenerate_timer_to_max", "VUIB_track_aregen", function(self)
-        if get_current_perkdeck() == "menu_st_spec_19" then return Hooks:RemovePostHook("VUIB_track_aregen") end
+    Hooks:PostHook(PlayerDamage, "set_regenerate_timer_to_max", "VUIBA_PlayerDamage_set_regenerate_timer_to_max", function(self)
+        if get_current_perkdeck() == "menu_st_spec_19" then return Hooks:RemovePostHook("VUIBA_PlayerDamage_set_regenerate_timer_to_max") end
         local data = {id = "ArmorRecovery", type = "Perk", time = self._regenerate_timer}
         managers.hud._hud_objectives:add_buff(data)
     end)
 end
 
 if VoidUI_IB.options.skill_StaminaMultiplier and RequiredScript == "lib/units/beings/player/playermovement" then
-    Hooks:PostHook(PlayerMovement, "_max_stamina", "VUIB_track_staminamul", function(self)
+    Hooks:PostHook(PlayerMovement, "_max_stamina", "VUIBA_PlayerMovement__max_stamina", function(self)
         local value = managers.player:stamina_multiplier() - 1
         if value > 0 then
             local data = {id = "StaminaMultiplier", name_id = "StaminaMultiplier", value = value}
@@ -30,7 +30,7 @@ end
 if RequiredScript == "lib/managers/playermanager" then
     --Track PerkDeck individual cards;
     local function track_marathon_man_damage_dampener()
-        Hooks:PostHook(PlayerManager, 'activate_temporary_upgrade', 'VUIB_update_CC_MarathonMan', function(self, category, upgrade)
+        Hooks:PostHook(PlayerManager, 'activate_temporary_upgrade', 'VUIBA_PlayerManager_activate_temporary_upgrade', function(self, category, upgrade)
             local upgrade_value = self:upgrade_value(category, upgrade)
             local time
             local value = math.abs(1 - self:temporary_upgrade_value("temporary", upgrade, 1))
@@ -47,7 +47,7 @@ if RequiredScript == "lib/managers/playermanager" then
     end
 
     local function track_marathon_man_stamina()
-        Hooks:PostHook(PlayerManager, "stamina_multiplier", "TrackMarathonManStaminaMul_VUIB", function(self)
+        Hooks:PostHook(PlayerManager, "stamina_multiplier", "VUIBA_PlayerManager_stamina_multiplier", function(self)
             local value = self:team_upgrade_value("stamina", "passive_multiplier", 1) - 1
             local data = {id = "MarathonManStamina", name_id = "MarathonManStamina", value = value}
             if value > 0 then
@@ -61,7 +61,7 @@ if RequiredScript == "lib/managers/playermanager" then
 
     local function track_MeleeStack()
         --managers.player:upgrade_value("melee", "stacking_hit_damage_multiplier", 0)
-        Hooks:PostHook(PlayerManager, "upgrade_value", "Track_Inf_MeleeStack", function(self, category, upgrade, default)
+        Hooks:PostHook(PlayerManager, "upgrade_value", "VUIBA_PlayerManager_track_MeleeStack", function(self, category, upgrade, default)
             if category == "melee" and upgrade == "stacking_hit_damage_multiplier" then
                 if self._global.upgrades[category] and self._global.upgrades[category][upgrade] then
                     local level = self._global.upgrades[category][upgrade]

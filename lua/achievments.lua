@@ -4,9 +4,9 @@ local tracked_elements = {
     pines = {{type="masks", achiev_id="xmas_2014"}}
 }
 if RequiredScript == "lib/managers/mission/elementawardachievment" and VoidUI_IB.options.Achievement then
-    Hooks:PostHook(ElementAwardAchievment, "on_toggle", "VUIB_Track_Achievements1", function(self, value)
+    Hooks:PostHook(ElementAwardAchievment, "on_toggle", "VUIBA_ElementAwardAchievment_on_toggle", function(self, value)
         if not tracked_elements[Global.game_settings.level_id] then
-            Hooks:RemovePostHook("VUIB_Track_Achievements1")
+            Hooks:RemovePostHook("VUIBA_ElementAwardAchievment_on_toggle")
             return
         end
         if table.contains(tracked_elements[Global.game_settings.level_id], self._id) then
@@ -29,9 +29,9 @@ if RequiredScript == "lib/managers/mission/elementawardachievment" and VoidUI_IB
         end
     end)
 
-    Hooks:PostHook(ElementAwardAchievment, "init", "VoidUI_start_tracking_achievement", function(self)
+    Hooks:PostHook(ElementAwardAchievment, "init", "VUIBA_ElementAwardAchievment_init", function(self)
         if not tracked_elements[Global.game_settings.level_id] then
-            Hooks:RemovePostHook("VoidUI_start_tracking_achievement")
+            Hooks:RemovePostHook("VUIBA_ElementAwardAchievment_init")
             return
         end
 
@@ -96,9 +96,9 @@ if RequiredScript == "lib/managers/mission/elementawardachievment" and VoidUI_IB
         end
     end)
 
-    Hooks:PostHook(ElementAwardAchievment, "on_executed", "VUIB_Track_Achievements2", function(self, instigator)
+    Hooks:PostHook(ElementAwardAchievment, "on_executed", "VUIBA_ElementAwardAchievment_on_executed", function(self, instigator)
         if not tracked_elements[Global.game_settings.level_id] then
-            Hooks:RemovePostHook("VUIB_Track_Achievements2")
+            Hooks:RemovePostHook("VUIBA_ElementAwardAchievment_on_executed")
             return
         end
         if table.contains(tracked_elements[Global.game_settings.level_id], self._id) then
