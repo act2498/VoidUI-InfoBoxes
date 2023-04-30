@@ -2,6 +2,7 @@ if not VoidUI_IB.options.timers then return end
 if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 	--Moved tables out of the local functions to prevent recreating them every time the script is loaded
 	--[[
+		
 	]]
 	local filter_table = {
 
@@ -65,7 +66,8 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 		},
 		["mad"] = {
 			["133167"] = "Analyze",
-			["131662"] = "EMP"
+			["131662"] = "EMP",
+			["131362"] = "EMP"
 		},
 		["spa"] = {
 			["101992"] = {"Achievement", "spa_5"},
@@ -133,8 +135,37 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 			["150099"] = "Fuel"
 		},
 		["pbr2"] = {
+			["144023"] = "Helicopter",
+			["146023"] = "Helicopter",
+			["145123"] = "Helicopter",
+			["146123"] = "Helicopter",
+			["143723"] = "Helicopter",
+			["144723"] = "Helicopter",
+			["145723"] = "Helicopter",
 			["143823"] = "Helicopter",
-			["145823"] = "Helicopter"
+			["144823"] = "Helicopter",
+			["145823"] = "Helicopter",
+			["144423"] = "Helicopter",
+			["145423"] = "Helicopter",
+			["145923"] = "Helicopter",
+			["143523"] = "Helicopter",
+			["144523"] = "Helicopter",
+			["146523"] = "Helicopter",
+			["143623"] = "Helicopter",
+			["144623"] = "Helicopter",
+			["145623"] = "Helicopter",
+			["144223"] = "Helicopter",
+			["145223"] = "Helicopter",
+			["146223"] = "Helicopter",
+			["144323"] = "Helicopter",
+			["145323"] = "Helicopter",
+			["146323"] = "Helicopter",
+			["145523"] = "Helicopter",
+			["145023"] = "Helicopter",
+			["143923"] = "Helicopter",
+			["144923"] = "Helicopter",
+			["146423"] = "Helicopter",
+			["144123"] = "Helicopter"
 		},
 		["chas"] = {
 			["101266"] = {"Achievement", "chas_11"},
@@ -201,7 +232,8 @@ if RequiredScript == "core/lib/managers/mission/coreelementtimer" then
 			["100953"] = "Time_lock"
 		},
 		["glace"] = {
-			["102333"] = "Plane"
+			["102333"] = "Plane",
+			["100732"] = "Plane"
 		}
 	}
 
