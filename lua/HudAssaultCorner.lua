@@ -166,7 +166,12 @@ end
 
 function HUDAssaultCorner:update_box(id, value, _type)
 	local infobox = VoidUIInfobox:child(id)
-	if VoidUI_IB.options.remove_empty and value == 0 or value == "0 | x0" then return end
+	if VoidUI_IB.options.remove_empty and value == 0 or value == "0 | x0" then
+		if infobox then
+			infobox:remove()
+		end
+		return
+	end
 	if not infobox then
 		local InfoboxClass = _type == "Collectable" and CollectableInfobox or CounterInfobox
 		InfoboxClass:new({

@@ -36,7 +36,7 @@ if VoidUI_IB.options.timer_Tape_loop then
     end)
 
     Hooks:PreHook(SecurityCamera, '_deactivate_tape_loop_restart', 'remove_camera_timebox3', function(self, ...)
-        if not TimerInfobox then return end
+        if not TimerInfobox or not managers.hud or not managers.hud._hud_assault_corner then return end
         
         if TimerInfobox:child("cu_loop_"..self._unit:id()) then
             local time = TimerInfobox:child("cu_loop_"..self._unit:id()).value
